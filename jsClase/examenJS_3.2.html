@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="padre">
+
+
+
+    </div>
+
+    <script>
+        var padre = document.getElementById("padre");
+
+        var miMapa = new Map();
+
+        miMapa.set("naranjas", "#FF9933");
+        miMapa.set("peras", "#339933");
+        miMapa.set("manzana", "#FF3300");
+        miMapa.set("aguacates", "#336600");
+        miMapa.set("ciruelas", "#660066");
+        miMapa.set("uvas", "#141F1F");
+
+        function hacer() {
+
+
+            this.style.backgroundColor = this.className;
+
+          if ( document.getElementById("chk"+this.id)== null){
+            var label = document.createElement("LABEL");
+            var t = document.createTextNode(this.innerHTML);
+            label.setAttribute("name", this.innerHTML);
+            label.setAttribute("for", this.innerHTML);
+            label.appendChild(t);
+            let input = document.createElement("input");
+            input.type = "checkbox";
+            input.checked = true;
+            input.className = this.innerHTML;
+            input.id ="chk"+this.id;
+            input.addEventListener("change", deshacer, false);
+            //x.appendChild(input);
+            padre.appendChild(label);
+            padre.appendChild(input);
+          }
+        
+
+
+        }
+
+
+        function quitar() {
+            var padre = document.getElementById("padre");
+            this.style.backgroundColor = "white";
+           
+            var check = document.getElementById("chk"+this.id);
+            check.previousElementSibling.remove();
+            check.remove();
+            console.log("entra")
+        }
+        function deshacer() {
+            
+            var padre = document.getElementById("padre");
+            if (event.target.checked) {
+                var chek = miMapa.get(this.className);
+
+                document.getElementById(this.className).style.background = chek;
+            } else {
+
+
+                let elem = document.getElementById(this.className);
+                elem.style.backgroundColor = "white";
+                //padre.removeChild(document.getElementsByName(this.className));
+
+                //this
+                //this.parentElement.removeChild(this);
+                
+                this.previousElementSibling.remove();
+                this.remove();
+            }
+        }
+
+
+
+        for (var [clave, valor] of miMapa) {
+
+            var div1 = document.createElement("div")
+
+            div1.style.borderWidth = "1px";
+            div1.style.borderColor = "black";
+            div1.style.width = "100px";
+            div1.style.height = "50px";
+            div1.style.borderStyle = "solid";
+            div1.style.textAlign = "center";
+            div1.id = clave;
+            div1.className = valor;
+            div1.addEventListener("click", hacer, false);
+            div1.addEventListener("dblclick", quitar, false);
+            var text = document.createTextNode(clave)
+
+            div1.appendChild(text);
+            padre.appendChild(div1);
+
+
+        }
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

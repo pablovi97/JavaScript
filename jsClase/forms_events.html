@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body onload="eventos()">
+    <form id="componentes" name="componentes" method="GET">
+        <input id="placabase" name="placabase" type="text" value="Prueba"
+        onclick="this.id='pb'; this.type='text'"
+        ondblclick="this.readOnly = !this.readOnly"
+        onchange="document.getElementById('cpu').focus()"
+        oninput="if (this.value[this.value.length-1] == '-') this.blur()"         
+        /> - 
+        <input id="cpu" name="cpu" type="text" value="AMD"
+        onclick="alert(this.value + 
+            '\n' + this.getAttribute('value') + '\n' + this.defaultValue)"
+        />
+
+    </form>
+    <script src="forms_events.js"></script>
+</body>
+</html>

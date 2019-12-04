@@ -1,0 +1,77 @@
+<!--
+
+atributos en HTML5 para <input>
+autocomplete
+autofocus
+form
+formaction
+formenctype
+formmethod
+formnovalidate
+formtarget
+height and width
+list
+min y max
+multiple
+pattern (regexp)→ http://html5pattern.com 
+placeholder
+required
+step
+minlength y maxlength
+
+y para <form>:
+autocomplete
+novalidate
+
+
+elem.checkValidity() -> 
+elem.setCustomValidity('mensaje');
+
+
+checkValidity()             Returns true if an input element contains valid data.
+setCustomValidity(msg)     Sets the validationMessage property of an input element → CUIDADO!!! Añadir un mensaje hace que el campo se considere como que TIENE un error!! Hay que probar si el campo tiene error con checkValidity() y si lo tiene, añadir el mensaje, y si no, BORRARLO para que no tenga error (“”)
+
+Property                 Description
+validity                 Contains boolean properties related to the validity of an input element.
+validationMessage         Contains the message a browser will display when the validity is false.
+willValidate             Indicates if an input element will be validated.
+
+Property of validity    Description 
+customError     Set to true, if a custom validity message is set. 
+patternMismatch     Set to true, if an element's value does not match its pattern attribute. 
+rangeOverflow     Set to true, if an element's value is greater than its max attribute. rangeUnderflow     Set to true, if an element's value is less than its min attribute. stepMismatch    Set to true, if an element's value is invalid per its step attribute. tooLong         Set to true, if an element's value exceeds its maxLength attribute. 
+typeMismatch    Set to true, if an element's value is invalid per its type attribute. valueMissing     Set to true, if an element (with a required attribute) has no value. valid             Set to true, if an element's value is valid.
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="juanito.php" method="GET">
+        <input type="range" min="1" max="5" step="1" ><br />
+        <input type="number" min="1" max="5" step=".1" required><br /><br />
+        <input type="text" minlength="6" maxlength="8"  required pattern="[a-z]{6}"><br />
+        <input type="file">
+        <input type="checkbox" onclick="this.form.novalidate = this.checked"><br />
+
+        <input type="text" oninput="console.log(this.checkValidity(), this.setCustomValidity('mal mal'))" pattern="[a-z]" required>
+
+        <input type="submit" formaction="pepito.php" formmethod="POST" value="Pepito" formenctype="text/plain">
+        <input type="submit" formaction="luisito.php" formmethod="GET" value="Luisito" formenctype="multipart/form-data">
+
+        <button type="button" onclick="console.log(this.form.querySelectorAll(':valid').forEach(v => v.readOnly = true));">NO válido</button>
+        <button type="button" onclick="console.log(this.form.querySelectorAll(':read-only').forEach(v => v.readOnly = false));">Habilitar</button>
+
+        <a href="" onclick="alert('Hola'); return false;">Prueba</a>
+        
+    </form> 
+    
+</body>
+</html>

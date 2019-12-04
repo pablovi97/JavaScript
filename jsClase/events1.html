@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body id="body">
+
+    <div id="div1">
+            <p>&nbsp;</p>
+            <div id="div2">
+                    <p>&nbsp;</p>
+                    <div id="div3">
+                            <p>&nbsp;</p>
+                            <button type="button" id="boton">Saludo</button> <br />
+                            <a href="http://www.google.com" id="link">Ir a google</a>                   
+                            <p>&nbsp;</p>
+                        </div>
+                        <p>&nbsp;</p>
+                </div>
+                <p>&nbsp;</p>    
+    </div>
+
+    
+
+    <script>
+
+        function showXY(evento) {
+            console 
+            console.log(evento.x, evento.y, evento.buttons);
+        }
+        function f_saludo(event) {
+            console.log(event);
+            alert("Hola " + this.id + " " + event.target.id + " " + event.target.tagName);
+            if (this.id == 'div3') {
+                event.stopPropagation();
+            }
+            if (this.tagName == 'A') {
+                event.preventDefault();
+            }
+            //alert("Hola " + this.tagName);
+        }
+
+        function f_aux() {
+            document.getElementById('div1').onclick();
+        }
+
+        //document.getElementById('body').onclick = f_saludo;
+        document.getElementById('div1').onclick = f_saludo;
+        //document.getElementById('div2').onclick = f_saludo;
+        //document.getElementById('div3').onclick = f_saludo;
+        //document.getElementById('boton').onclick = f_saludo;
+        //let boton = document.getElementById('boton');
+        //boton.onclick = () => console.log(this);
+        //boton.onclick = f_saludo;
+        //boton.onclick = null;
+
+        // Hacer que salga 1) div2, boton, div3
+        //document.getElementById('div2').addEventListener("click", f_saludo, true);
+        //document.getElementById('div2').addEventListener("click", f_aux, true);
+        //document.getElementById('div2').removeEventListener("click", f_aux, true);
+        //document.getElementById('boton').addEventListener("click", f_saludo, true);
+        document.getElementById('div1').addEventListener("mousemove", showXY, true);
+        //document.getElementById('div3').addEventListener("click", f_saludo, false);
+        //document.getElementById('link').addEventListener("click", f_saludo, false);
+
+    </script>
+    
+</body>
+</html>

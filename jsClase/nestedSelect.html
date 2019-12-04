@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <select id="primary"></select><br/>
+    <select id="secondary"></select><br/>
+
+
+    <script>
+
+        window.onload = function() {
+
+            // INICIALIZACIÓN
+
+            // Lista de opciones
+
+            var opciones = new Map();
+            opciones.set('Alpacas', ['marrones', 'negras', 'azules']);
+            opciones.set('Coches', ['rueda', 'BMW']);
+            opciones.set('Ropa', ['tenis', 'camisetas', 'otro tenis']);
+
+            // Valores por defecto
+            let primary = document.getElementById('primary');
+            let secondary = document.getElementById('secondary');
+
+            primary.options.add(new Option("-- Elija una opción --", ""));
+            secondary.options.add(new Option("-- Desactivado --", ""));
+            secondary.disabled = true;
+
+            // Cargo las opciones del primario
+            for (let [key, val] of opciones) {
+                // Añado opciones del select primario
+                //let opc = document.createElement('OPTION');
+                //opc.value = key; 
+                //opc.text = key;
+                //primary.options.add(opc);
+
+                primary.options.add(new Option(key, key));
+            }
+
+            primary.onchange = () => build_secondary(primary, secondary, opciones)
+
+
+            function build_secondary(pri, sec, opciones) {
+
+                // sec.options.length = 0;
+                // ELIMINO TODAS las opciones y para evitar problemas
+                // con .length, lo hago en orden inverso
+                for (let i = sec.options.length; i >= 0; i--) {
+                    sec.options.remove(i);
+                }
+
+
+                // Cargar las opciones correspondientes
+                if (opciones.has(pri.value)) {
+                    sec.options.add(new Option("-- Elija una opción --", ""));
+                    sec.disabled = false;  // Activo el secundario
+
+                    let opc_list = opciones.get(pri.value); // cojo la lista
+                    opc_list.forEach((v, i) => sec.options.add(new Option(v, i)));
+                }
+                else {
+                    // No ha elegido NADA en el primario, desactivo
+                    sec.disabled = true;
+                    sec.options.add(new Option("-- Desactivado --", ""));
+                }
+
+            }
+
+
+
+
+
+
+        }
+    
+    
+    
+    
+    </script>
+
+    
+</body>
+</html>

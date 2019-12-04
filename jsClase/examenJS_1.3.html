@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form action="/action_page.php">
+        <input type="text" class="text" id="campos" placeholder=" numeros del 0 al 20">
+        <span id="mensajes"></span>
+        <button class="" id="lanzar">lanzar</button>
+        <button class="" id="parar" disabled>parar</button>
+    </form>
+
+    <script>
+        var intervalid = null;
+        document.getElementById("lanzar").onclick = function () {
+
+
+
+            intervalid = setInterval(lanzamientos, 10000);
+
+
+
+        }
+        document.getElementById("parar").onclick = function () {
+            var input = document.getElementById("campos");
+            var btnlanzar = document.getElementById("lanzar");
+            var btnparar = document.getElementById("parar");
+            var mens = document.getElementById("mensajes");
+            var btnlanzar = document.getElementById("lanzar");
+            clearInterval(intervalid);
+            mens.innerHTML = "";
+
+            input.disabled = false;
+            btnlanzar.disabled = false;
+            btnparar.disabled = true;
+
+            console.log("para");
+        }
+        function lanzamientos() {
+            console.log("entra");
+            var re = /^[1-9]$|^0[1-9]$|^1[0-9]$|^20$/;
+
+            var input = document.getElementById("campos");
+            var btnlanzar = document.getElementById("lanzar");
+            var btnparar = document.getElementById("parar");
+            var mens = document.getElementById("mensajes");
+
+
+            let result = re.test(input.value);
+
+
+            if (input.value == 0) {
+                console.log("para cuando es menor que 0")
+                mens.innerHTML = "ya no hay mas tiradas!";
+                clearInterval(intervalid);
+                input.disabled = false;
+                btnlanzar.disabled = false;
+                btnparar.disabled = true;
+            } else {
+                if (!result) {
+                    alert("introduzca valores correctos!")
+                } else {
+                    input.disabled = true;
+                    btnlanzar.disabled = true;
+                    btnparar.disabled = false;
+
+                    //let val = +intput.value;
+                    input.value = input.value - 1;
+
+
+
+
+                    mens.innerHTML = "lanzando...";
+                    setTimeout(function () {
+
+                        var res = Math.random() * (7 - 1) + 1;
+                        mens.innerHTML = "el valor obtenido al lanzar el dado es [ " + parseInt(res) + " ] quedan " + input.value + " tiradas!";
+
+                    }, 3000);
+
+                }
+
+
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

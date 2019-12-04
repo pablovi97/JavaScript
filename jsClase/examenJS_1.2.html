@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+        function cookie2sessionStorage(param) {
+
+
+            if (param) {
+
+                var coockies = decodeURIComponent(document.cookie);
+
+
+                var arr = coockies.split(";");
+
+
+                for (v of arr) {
+                    let elem = v.split("=");
+                    sessionStorage.setItem(elem[0], elem[1]);
+                }
+                eliminarCookies();
+                console.log("coockie movida a sesionStorage!")
+            } else {
+
+                var coockies = decodeURIComponent(document.cookie);
+
+
+                var arr = coockies.split(";");
+
+
+                for (v of arr) {
+                    let elem = v.split("=");
+                    sessionStorage.setItem(elem[0], elem[1]);
+                }
+
+
+                console.log("coockie copia en sesionStorage!")
+
+            }
+
+
+        }
+
+
+        function crearcoockies() {
+            try {
+                document.cookie = "pepe = 344";
+                document.cookie = "juan = 678";
+                console.log("coockie creada");
+            } catch{
+                console.log("coockie no creada");
+            }
+
+
+        }
+        function crearSessionStorage() {
+
+
+            try {
+                sessionStorage.setItem("c", "15");
+                sessionStorage.setItem("d", "17");
+                console.log("session creada");
+            } catch{
+                console.log("session no creada");
+
+            }
+
+        }
+
+        function eliminarCookies() {
+            let la_cookie = document.cookie.split("; ")
+            let fecha_fin = new Date;
+            fecha_fin.setDate(fecha_fin.getDate() - 1)
+            for (i = 0; i < la_cookie.length; i++) {
+                mi_cookie = la_cookie[i].split("=")[0]
+                document.cookie = mi_cookie + "=;expires=" + fecha_fin.toGMTString()
+                console.log("eliminar coockie");
+            }
+        }
+
+
+        function sessionStorage2coockie(param) {
+
+
+            if (param) {
+                document.cookie = "c =" + window.sessionStorage.getItem("c");
+                document.cookie = "d =" + window.sessionStorage.getItem("d");
+                window.sessionStorage.clear();
+
+            } else {
+
+
+                document.cookie = "c =" + window.sessionStorage.getItem("c");
+                document.cookie = "d =" + window.sessionStorage.getItem("d");
+
+                console.log(window.sessionStorage.getItem("c"));
+            }
+
+        }
+        //crearcoockies();
+        crearSessionStorage();
+        //cookie2sessionStorage(true);
+        sessionStorage2coockie(true);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="test" name="test" 
+      onsubmit="if (validateAll()) { return confirm('¿Quieres enviar?');} 
+      else return false">
+
+        <label for="cod_postal">Código postal: </label>
+        <input type="text" id="cod_postal" name="cod_postal" value=""
+        oninput="validate(this, 'codigo_postal')"><br />
+
+        <label for="edad">Edad: </label>
+        <input type="text" id="edad" name="edad" value=""
+        oninput="validate(this, 'natural')"><br />
+
+        <label for="temperatura">Temperatura: </label>
+        <input type="text" id="temperatura" name="temperatura" value=""
+        oninput="validate(this, 'entero')"><br />
+
+        <label for="nota">Nota: </label>
+        <input type="text" id="nota" name="nota" value=""
+        oninput="validate(this, 'flotante')"><br /><br />
+
+        <button type="submit">Enviar</button>
+
+    </form>
+    
+
+    <script>
+
+        function validateAll() {
+
+            let data = new Map();
+            data.set('cod_postal', 'codigo_postal');
+            data.set('edad', 'natural');
+            data.set('temperatura', 'entero');
+            data.set('nota', 'flotante');
+
+            let form_ok = true;     // Formulario correcto
+
+            for (let [id, tipo] of data) {
+                let elem = document.getElementById(id);
+                let result = validate(elem, tipo)
+                if (form_ok && !result) {
+                    form_ok = false;
+                    elem.focus();
+                }
+            }
+            return form_ok;
+        }
+
+        function validate(elem, tipo) {
+            let re = /.*/;
+
+            switch (tipo) {
+                case 'codigo_postal':   re = /^\d{5}$/; break;
+                case 'natural':         re = /^\d+$/;   break;
+                case 'entero':          re = /^[-+]?\d+$/;   break;
+                case 'flotante':        re = /^[-+]?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/;   break;
+            }
+             
+
+            let result = re.test(elem.value);
+            let color = (result) ? "green" : "red";
+            elem.style.border = `3px ${color} solid`;
+
+            return result;
+
+
+        }
+
+        // Patrón:  \  ^  $  *  +  ?  .  (x)  x|y   \s  \S  \t 
+        // {n}  {n,}  {n,m}  [xyz]  [^xyz]  \d  \D  \w  \W  [a-z] [-ab]
+        //
+        // (?:x)  x(?=y)  x(?!y) \f  \n  \r [\b]  \b  \B  \cX  \v  \n  \0  \xhh  \uhhhh 
+
+        var re1 = new RegExp("[0-9][0-9]", "igm");
+        var re2 = new RegExp(/[0-9][0-9]/, "igm");
+        var re3 = /[0-9][0-9][a-z]/igm;
+
+    
+
+        function eliminarHTML(codigo) {
+            var re = /<[^>]*>/gm;
+
+            return codigo.replace(re, '');
+
+        }
+
+        texto = '<p>En un <strong>lugar de la <em>Mancha</em> de cuyo <span class="x"> nombre</span></strong> no me quiero acordar</p>';
+        console.log(eliminarHTML(texto));
+
+        function nombrePersona(candidato) {
+            var re = /^[A-ZÁÉÍÓÚÑ][a-záéíóúñü]*$/;
+
+            return re.test(candidato);
+        }
+
+        console.log(nombrePersona("María"));
+
+
+    </script>
+</body>
+</html>

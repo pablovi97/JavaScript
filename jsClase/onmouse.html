@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div {
+  width: 150px;
+  height: 100px;
+  border: 1px solid black;
+  margin: 10px;
+  float: left;
+  padding: 30px;
+  text-align: center;
+  background-color: lightgray;
+}
+h3 {
+  background-color: white;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+var ov = 0;
+var ou = 0;
+var en = 0;
+var le = 0;
+var mo = 0;
+$(document).ready(function(){
+  $("div.over").mouseover(function(){
+    $("#over").text(ov += 1);
+  });
+    $("div.over").mouseout(function(){
+    $("#out").text(ou += 1);
+  });
+  $("div.enter").mouseenter(function(){
+    $("#enter").text(en += 1);
+  });
+  $("div.enter").mouseleave(function(){
+    $("#leave").text(le += 1);
+  });
+  $("div.move").mousemove(function(){
+    $(".move span").text(mo += 1);
+  });
+});
+</script>
+</head>
+<body>
+ 
+<h1>Mouseover/out, MouseEnter/Leave, MouseMove</h1>
+ 
+ 
+<div class="over">
+  <h3>Mouseover/out: <span id="over">0</span>/<span id="out">0</span></h3>
+</div>
+ 
+<div class="enter">
+  <h3>Mouseenter/leave: <span id="enter">0</span>/<span id="leave">0</span></h3>
+</div>
+ 
+<div class="move">
+  <h3>Mousemove: <span>0</span></h3>
+</div>
+ 
+</body>
+</html>

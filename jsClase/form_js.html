@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Esto es una prueba</title>
+</head>
+<body onload="cogeElem()">
+
+    <form id="pedro_id" name="pedro_name">
+        <input id="input_id" name="input_name" type="range" min="0" max="10" step="1"
+                oninput="cambiar(this);">
+        <input id="copia_id" name="copia_name" type="text">
+        <input list="frutas_id">
+        <datalist id="frutas_id" name="frutas_name" 
+        onchange="alert(this.options[this.selectedIndex].text);">
+            <option value="plat">Plátanos</option>
+            <option value="manz">Manzanas</option>
+            <option value="melc">Melocotón</option>
+    </datalist>
+
+
+    </form>
+
+    <script src="dom.js"></script>
+    <script>
+        function cambiar(x) {
+            x.form.copia_name.value = x.value;
+        }
+    </script>
+</body>
+</html>

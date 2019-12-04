@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 id="titulo">Hola!!</h1>
+
+    Fósiles <button type="button" id="add">[+]</button>
+    <div id="fields">
+    </div>
+    
+
+    <script>
+    // SEPARAR EN OTRO FICHERO!!!!
+    
+    window.onload = function () {
+        let button_add = document.getElementById('add');
+        button_add.onclick = add_field;
+
+        titulo = document.getElementById('titulo');
+        titulo.insertAdjacentText("beforebegin", "AA");
+        titulo.insertAdjacentText("afterbegin", "BB");
+        titulo.insertAdjacentText("beforeend", "CC");
+        titulo.insertAdjacentText("afterend", "DD");
+
+
+    }
+
+    function add_field() {
+
+        // Verificar que NO se recibe NULL!!!!
+
+        let fields = document.getElementById('fields');
+        let lastId = (fields.lastElementChild) ? +fields.lastElementChild.dataset.lastId + 1: 1;
+
+        let container = document.createElement("div");
+        container.id = "cont" + lastId;
+        //container.valor = lastId;
+        //container.setAttribute("valor", lastId - 1);
+        //alert(container.valor + " - " + container.getAttribute("valor"));
+        container.dataset.lastId = lastId;
+
+
+        let label = document.createElement("label");
+        label.id = "label" + lastId;
+        label.for = "campo";
+        let texto_label = document.createTextNode("Valor " + lastId + ": ");
+        label.appendChild(texto_label);
+
+        let input = document.createElement("input");
+        input.id = "campo" + lastId;
+        input.type = "text";
+        input.value = 3;
+
+        let button = document.createElement("button");
+        button.id = "cierra" + lastId;
+        button.type = "button";
+        // button.innerText = "[X]" // !!!!!!!!!!!!!!!!!!
+        let texto_button = document.createTextNode("[X]");
+
+        //button.onclick = () => container.remove();
+        button.onclick = () => container.parentElement.removeChild(container);
+        button.appendChild(texto_button);
+
+
+
+        container.appendChild(label);
+        container.appendChild(input);
+        container.appendChild(button);
+        fields.appendChild(container);
+    }
+
+   
+        
+        
+        
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="padre">
+
+        <form action="/action_page.php">
+
+            <input type="radio" name="gender" value="animal" id="anim">elija animal<br>
+            <input type="radio" name="gender" value="perro" id="perro"> perro<br>
+            <input type="radio" name="gender" value="gato" id="gato"> gato<br>
+            <span id="campo"></span>
+
+
+        </form>
+    </div>
+
+    <script>
+
+
+
+
+        document.getElementById("perro").onchange = function () {
+
+            var padre = document.getElementById("padre");
+
+
+
+            if (document.getElementById("mas") == null) {
+
+                var div = document.createElement("div");
+                div.id = "perros";
+
+                var label = document.createElement("LABEL");
+                var t = document.createTextNode("chiguagua");
+                label.setAttribute("name", "perro");
+                label.appendChild(t);
+                let input = document.createElement("input");
+                input.type = "checkbox";
+                input.addEventListener("change", hacer, false);
+                input.id = "chi";
+                input.value = "chiguagua"
+                div.appendChild(label);
+                div.appendChild(input);
+
+
+
+                var label1 = document.createElement("LABEL");
+                var t1 = document.createTextNode("pastor aleman");
+                label1.setAttribute("name", "perro");
+                label1.appendChild(t1);
+
+                let input2 = document.createElement("input");
+                input2.addEventListener("change", hacer, false);
+                input2.type = "checkbox";
+                input2.value = "pastor aleman"
+                input2.id = "pas";
+                //x.appendChild(input);
+                div.appendChild(label1);
+                div.appendChild(input2);
+
+
+
+                var label2 = document.createElement("LABEL");
+                var t2 = document.createTextNode("mastin");
+                label2.setAttribute("name", "perro");
+                label2.appendChild(t2);
+
+                let input3 = document.createElement("input");
+                input3.addEventListener("change", hacer, false);
+                input3.type = "checkbox";
+                input3.value = "mastin";
+                input3.id = "mas";
+                //x.appendChild(input);
+                div.appendChild(label2);
+                div.appendChild(input3);
+
+                padre.appendChild(div);
+            }
+
+
+        }
+
+
+        document.getElementById("gato").onchange = function () {
+
+            var padre = document.getElementById("padre");
+
+            if (document.getElementById("perros")) {
+                document.getElementById("perros").remove();
+            }
+
+            if (document.getElementById("per") == null) {
+
+
+                var label = document.createElement("LABEL");
+                var t = document.createTextNode("persa");
+                label.setAttribute("name", "gato");
+                label.appendChild(t);
+                let input = document.createElement("input");
+                input.type = "checkbox";
+                input.addEventListener("change", hacer, false);
+                input.id = "per";
+                input.value = "persa"
+                padre.appendChild(label);
+                padre.appendChild(input);
+
+
+
+                var label1 = document.createElement("LABEL");
+                var t1 = document.createTextNode("angora");
+                label1.setAttribute("name", "gato");
+                label1.appendChild(t1);
+
+                let input2 = document.createElement("input");
+                input2.addEventListener("change", hacer, false);
+                input2.type = "checkbox";
+                input2.value = "angora"
+                input2.id = "ang";
+                //x.appendChild(input);
+                padre.appendChild(label1);
+                padre.appendChild(input2);
+
+
+
+                var label2 = document.createElement("LABEL");
+                var t2 = document.createTextNode("siames");
+                label2.setAttribute("name", "gato");
+                label2.appendChild(t2);
+
+                let input3 = document.createElement("input");
+                input3.addEventListener("change", hacer, false);
+                input3.type = "checkbox";
+                input3.value = "siames";
+                input3.id = "sia";
+                //x.appendChild(input);
+                padre.appendChild(label2);
+                padre.appendChild(input3);
+            }
+        }
+        function hacer() {
+
+
+            document.getElementById("campo").innerHTML = this.value;
+
+        }
+
+    </script>
+</body>
+
+</html>

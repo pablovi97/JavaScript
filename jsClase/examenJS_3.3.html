@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form id="test" name="test" onsubmit="if (validateAll()) { return confirm('¿Quieres enviar?');} 
+    else return false">
+        <p>
+
+            Clave <input type="text" id="clave" oninput="validate(this, 'clave')">
+        </p>
+        <p>
+
+            Valor <input type="text" id="valor" oninput="validate(this, 'valor')">
+        </p>
+        <div id="mostrar"></div>
+        <button type="button" id="guardar"> guardar</button> <button type="button" id="Borrar"> Borrar</button>
+        <button type="button" id="Mostrar"> Mostrar</button>
+        <br>
+
+
+        <textarea name="" id="campos" cols="30" rows="10"></textarea>
+    </form>
+    <script>
+
+        function validateAll() {
+
+            let data = new Map();
+            data.set('clave', 'clave');
+            data.set('valor', 'valor');
+
+            let form_ok = true;     // Formulario correcto
+
+            for (let [id, tipo] of data) {
+                let elem = document.getElementById(id);
+                let result = validate(elem, tipo)
+                if (form_ok && !result) {
+                    form_ok = false;
+                    elem.focus();
+                }
+            }
+            return form_ok;
+        }
+
+        function validate(elem, tipo) {
+            let re = /.*/;
+
+            switch (tipo) {
+                case 'clave': re = /^[A-z]+[A-z0-9]*$/; break;
+                case 'valor': re = /^[-]?[0-9]{1,9}(?:\.[0-9]{1,2})?$/; break;
+            }
+
+
+            let result = re.test(elem.value);
+            let color = (result) ? "green" : "red";
+            elem.style.border = `3px ${color} solid`;
+
+            return result;
+
+
+        }
+        document.getElementById("guardar").onclick = function () {
+
+
+            if (validateAll()) {
+                var valor = +document.getElementById("valor").value;
+                document.cookie = document.getElementById("clave").value + "=" + Math.pow(valor, 2);
+                var div = document.getElementById("mostrar");
+
+                div.innerHTML = "el dato se ha guardado correctamente";
+                setTimeout(function () { div.innerHTML = ""; }, 3000);
+            } else {
+
+            }
+
+        }
+        function eliminarCookies() {
+            let la_cookie = document.cookie.split("; ")
+            let fecha_fin = new Date;
+            fecha_fin.setDate(fecha_fin.getDate() - 1)
+            for (i = 0; i < la_cookie.length; i++) {
+                mi_cookie = la_cookie[i].split("=")[0]
+                document.cookie = mi_cookie + "=;expires=" + fecha_fin.toGMTString()
+                console.log("eliminar coockie");
+            }
+        }
+        document.getElementById("Borrar").onclick = function () {
+            document.getElementById("clave").value = "";
+            document.getElementById("valor").value = "";
+            eliminarCookies();
+            document.getElementById("campos").value = "";
+
+
+
+
+
+        }
+
+
+        document.getElementById("Mostrar").onclick = function () {
+
+
+            var decodedCookie = decodeURIComponent(document.cookie);
+            /*
+                     let data = {} ;
+         
+                     //console.log(JSON.parse(decodedCookie));
+         var cook = document.cookie.split(";");
+         if(cook[0]){
+         data = JSON.parse(cook[0]);
+         
+         
+         }
+              */
+            var arr = decodedCookie.split(";");
+            var arr = document.cookie.split(";");
+
+
+            var nuevoJSON = "{";
+            for (v of arr) {
+                var ele = v.split("=");
+                nuevoJSON += "'" + ele[0] + "'" + ":" + "'" + ele[1] + "'";
+            }
+            nuevoJSON += "}";
+
+            document.getElementById("campos").value = nuevoJSON;
+
+
+
+
+        }
+        document.getElementById("campos").blur = function () {
+            this.setAttribute("readOnly", false);
+        }
+
+        document.getElementById("campos").onfocus = function () {
+            this.setAttribute("readOnly", true);
+        }
+    </script>
+</body>
+
+</html>

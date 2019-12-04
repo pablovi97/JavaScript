@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="test" name="test" 
+      onsubmit="if (validateAll()) { return confirm('¿Quieres enviar?');} 
+      else return false">
+
+        <label for="matr">Matrícula: </label>
+        <input type="text" id="matr" name="matr" value=""
+        oninput="validate(this, 'matricula')"><br />
+
+        <label for="email">Email: </label>
+        <input type="text" id="email" name="email" value=""
+        oninput="validate(this, 'email')"><br />
+
+        <label for="telef">Teléfono: </label>
+        <input type="text" id="telef" name="telef" value=""
+        oninput="validate(this, 'telefono')"><br />
+
+        <label for="fecha">Fecha: </label>
+        <input type="text" id="fecha" name="fecha" value=""
+        oninput="validate(this, 'fecha')"><br /><br />
+
+        <label for="comentarios">Comentarios: </label>
+        <textarea id="comentarios" name="comentarios"
+        oninput="validate(this, 'texto')"></textarea><br /><br />
+
+        <label for="acuerdo">¿Está usted de acuerdo con las condiciones? </label>
+        <input type="checkbox" name="acuerdo" id="acuerdo" value="OK" checked>
+
+        <select id="nivel" name="nivel" multiple>
+            <option value="-1">Elija opción</option>
+            <option value="1">No estoy de acuerdo</option>
+            <option value="2">Deacuerdillo</option>
+            <option value="3">Va a ser que no</option>
+        </select>
+
+        <button type="submit">Enviar</button>
+
+    </form>
+    
+
+    <script>
+
+        function validateAll() {
+
+            let data = new Map();
+            data.set('matr', 'matricula');
+            data.set('email', 'email');
+            data.set('telef', 'telefono');
+            data.set('fecha', 'fecha');
+            data.set('comentarios', 'texto');
+
+            let form_ok = true;     // Formulario correcto
+
+            for (let [id, tipo] of data) {
+                let elem = document.getElementById(id);
+                let result = validate(elem, tipo)
+                if (form_ok && !result) {
+                    form_ok = false;    // Hubo un error
+                    elem.focus();
+                }
+            }
+
+            let acuerdo = document.getElementById('acuerdo');
+            if (acuerdo) {
+                color = (acuerdo.checked) ? "green" : "red";
+                acuerdo.style.outline = `3px ${color} solid`;
+                if (!acuerdo.checked) {
+                    form_ok = false;
+                }
+            }
+
+            let nivel = document.getElementById('nivel');
+            if (nivel) {
+                color = (nivel.selectedIndex != 0) ? "green" : "red";
+                nivel.style.border = `3px ${color} solid`;
+                if (nivel.selectedIndex != 0) {
+                    form_ok = false;
+                }
+            }
+
+            //nivel.options[i].selected
+            console.log(nivel.selectedOptions);
+            console.log(nivel.selectedOptions.length);
+
+            return form_ok;
+        }
+
+        function validate(elem, tipo) {
+            let re = /.*/;
+
+            switch (tipo) {
+                case 'matricula':  re = / /;  break;
+                case 'email':      re = / /;  break;
+                case 'telefono':   re = / /;  break;
+                case 'fecha':      re = / /;  break;
+                case 'texto':      re = / /;  break;
+            }
+             
+
+            let result = re.test(elem.value);
+            let color = (result) ? "green" : "red";
+            elem.style.border = `3px ${color} solid`;
+
+            return result;
+        }
+
+    </script>
+</body>
+</html>
