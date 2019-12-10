@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <style>
+    #myCanvas {
+      background-color: green;
+    }
+
+    .tamaño {
+
+      width: 30px;
+
+    }
+
+    .animales {
+      width: 60px;
+
+    }
+  </style>
+
+
+</head>
+
+<body onload=cosa()>
+
+  <div class="container py-5">
+
+    <div class="row">
+      <div class="col-8">
+        <canvas id="myCanvas" width="700" height="700">
+
+
+
+
+
+        </canvas>
+      </div>
+      <div class="col-4 " id="interfaz" style="overflow-y: auto; height: 650px; ">
+
+        <div class="row">
+          <div class="col-12">
+            <form>
+
+              <button type="button" name="simulador" id="simulador" class="btn btn-outline-warning">Simulador</button>
+
+              <button type="button" name="reinicio" id="reinicio" class="btn btn-outline-dark"
+                disabled>Reinicio</button>
+              <br>
+
+              <p>
+
+                Jugar como : <select name="select">
+                  <option selected>--Elegir--</option>
+                  <option value="carnivoro">Carnivoro</option>
+                  <option value="planta">Planta</option>
+                  <option value="herviboro">Herviboro</option>
+                </select>
+                <button type="button" name="jugar" id="jugar" class="btn btn-outline-dark" disabled>Jugar</button>
+              </p>
+
+            </form>
+
+          </div>
+        </div>
+        <hr>
+        <div class="col-12">
+          <p>
+            <label for="seres">Limite de seres</label>
+            <input type="range" id="maxseres" name="maxseres"
+              onchange="document.getElementById('textmaxseres').value = this.value" min="0" max="50">
+            <input type="text" id="textmaxseres" size="5">
+          </p>
+
+          <div class="row">
+            <div class="col-4">
+
+              <p class="tamaño">
+                <label for="plantas">Plantas</label>
+
+
+                <input type="number" id="plantas" class="animales" name="plantas" min="-20" max="20">
+
+              </p>
+            </div>
+
+            <div class="col-4">
+              <p class="tamaño">
+                <label for="herviboro(H)">Herviboros(H)</label>
+
+
+                <input type="number" id="herviboro(H)" class="animales" name="herviboro(H)" min="-20" max="20">
+
+              </p>
+
+            </div>
+            <div class="col-4">
+              <p class="tamaño">
+                <label for="herviboro(M)">Herviboros(M)</label>
+
+
+                <input type="number" id="herviboro(M)" class="animales" name="herviboro(M)" min="-20" max="20">
+
+              </p>
+
+            </div>
+            <div class="col-4">
+              <p class="tamaño">
+                <label for="carni(H)">Carni(H)</label>
+
+
+                <input type="number" id="carni(H)" class="animales" name="carni(H)" min="-20" max="20">
+
+              </p>
+
+            </div>
+            <div class="col-4">
+              <p class="tamaño">
+                <label for="carni(M)">Carni(M)</label>
+
+
+                <input type="number" id="carni(M)" class="animales" name="carni(M)" min="-20" max="20">
+
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="col-12">
+          <p>
+            <strong>Raton:</strong>
+            <label><input type="checkbox" id="cbox" value="nacer">:Nacer</label>
+            <label><input type="checkbox" id="cbox" value="morir">:Morir</label>
+
+            <select name="select" id="ratonselect">
+              <option selected>--Elegir--</option>
+              <option value="carnivoro">Carnivoro</option>
+              <option value="planta">Planta</option>
+              <option value="herviboro">Herviboro</option>
+            </select>
+
+          </p>
+          <div class="row">
+
+            <div class="col-4">
+              <p>
+                <strong>Plantas :</strong>
+
+                <button class="btn btn-primary btn-circle " id="ponerplanta">+</button>
+
+                <button class="btn btn-danger btn-circle " id="quitarplanta">x</button>
+              </p>
+            </div>
+
+            <div class="col-4">
+              <p>
+                <strong>Herviboros :</strong><br>
+                <form id="chkher">
+                  <input type="radio" name="gender" value="male" id="clickherviboroM"> Male<br>
+                  <input type="radio" name="gender" value="female" id="clickherviboroH"> Female<br>
+                </form>
+                <button class="btn btn-primary btn-circle " id="ponerherviboro">+</button>
+
+                <button class="btn btn-danger btn-circle " id="quitarherviboro">x</button>
+
+              </p>
+            </div>
+
+            <div class="col-4">
+              <p>
+                <strong>Carnivoros :</strong><br>
+                <form id="chkcar">
+                  <input type="radio" name="gender" value="male" id="clickcarnivoroM"> Male<br>
+                  <input type="radio" name="gender" value="female " id="clickcarnivoroH"> Female<br>
+                </form>
+
+                <button class="btn btn-primary btn-circle " id="ponercarni">+</button>
+
+                <button class="btn btn-danger btn-circle " id="quitarcarnivoro">x</button>
+
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="col-12">
+          <label for="date">Tiempo de simulacion :</label>
+          <strong>Real:</strong>
+
+          <label id="real"></label>
+          <input id="date" type="date">
+          <span id="timer"></span>
+          <label for="velocidad">Velociad general</label>
+
+          <input type="range" id="velocidad" name="velocidad"
+            onchange="document.getElementById('textvelocidad').value = this.value" min="0.1" step="0.01" max="10">
+          <input type="text" id="textvelocidad" size="5">
+
+
+        </div>
+        <hr>
+        <div class="col-12">
+
+          <table class="table table-dark" id="tablaDatos">
+            <thead>
+              <tr>
+                <th scope="col">Stats</th>
+                <th scope="col">Muertos</th>
+                <th scope="col">Vivos</th>
+                <th scope="col">Masa.med</th>
+                <th scope="col">Velocidad.med </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="pl">
+                <th scope="row">Plantas</th>
+                <td data-kill="0">0</td>
+                <td data-live="0">0</td>
+                <td data-mas="0"> 0</td>
+                <td data-vel="0">0</td>
+              </tr>
+              <tr id="crm">
+                <th scope="row">Carnivoros(M)</th>
+                <td data-kill="0">0</td>
+                <td data-live="0">0</td>
+                <td data-mas="0"> 0</td>
+                <td data-vel="0">0</td>
+              </tr>
+              <tr id="crh">
+                <th scope="row">Carnivoros(H)</th>
+                <td data-kill="0">0</td>
+                <td data-live="0">0</td>
+                <td data-mas="0"> 0</td>
+                <td data-vel="0">0</td>
+              </tr>
+              <tr id="hvm">
+                <th scope="row">Herviboros(M)</th>
+                <td data-kill="0">0</td>
+                <td data-live="0">0</td>
+                <td data-mas="0"> 0</td>
+                <td data-vel="0">0</td>
+              </tr>
+              <tr id="hvh">
+                <th scope="row">Herviboros(H)</th>
+                <td data-kill="0">0</td>
+                <td data-live="0">0</td>
+                <td data-mas="0"> 0</td>
+                <td data-vel="0">0</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+        </div>
+        <hr>
+        <div class="col-12">
+
+          <Strong>Configuración</Strong>
+          <br>
+          <div class="row">
+            <div class="col-4">
+              <label><strong>Plantas</strong></label>
+              <p>masa maxima:
+                <input type="number" id="masamaxplanta" min="0" max="100">
+              </p>
+
+              <p>masa inicial:
+                <input type="number" id="masiniplanta" min="0" max="100">
+              </p>
+              <p>vel nacimiento:
+                <input type="number" id="velnaciplanta" min="0" max="100">
+              </p>
+              <p>vel crecimiento:
+                <input type="number" id="velcreplanta" step="0.01" min="0" max="100">
+              </p>
+            </div>
+            <div class="col-4">
+              <label><strong>Herviboros</strong></label>
+
+              <p>masa maxima:
+                <input type="number" id="masamaxherviboro" min="0" max="100">
+              </p>
+
+              <p>masa inicial:
+                <input type="number" id="masiniherviboro" min="0" max="100">
+              </p>
+              <p>maxima edad:
+                <input type="number" id="maxedadherviboro" min="0" max="100">
+              </p>
+              <p>verl crecimiento:
+                <input type="number" id="velcreherviboro" min="0" max="100">
+              </p>
+
+            </div>
+
+            <div class="col-4">
+              <label><strong>Carnivoros</strong></label>
+
+              <p>masa maxima:
+                <input type="number" id="masmaxcarnivoros" min="0" max="100">
+              </p>
+
+              <p>masa inicial:
+                <input type="number" id="masainicarnivoros" min="0" max="100">
+              </p>
+              <p>maxima edad:
+                <input type="number" id="maxedadcarnivoro" min="0" max="100">
+              </p>
+              <p>maxima edad:
+                <input type="number" id="velcrecarnivoro" min="0" max="100">
+              </p>
+
+            </div>
+
+
+          </div>
+        </div>
+        <hr>
+        <div class="col-12">
+          <strong>Fósiles</strong>
+          <div class="row">
+
+            <div class="col-12" id="fosiles">
+
+              <p>
+                Masa/Radio <input type="text" id="mas1" size="5">
+
+              </p>
+              <p>
+                X: <input type="number" min="0" max="700" id="x1">
+              </p>
+              <p>
+                y: <input type="number" min="0" max="700" id="y1">
+              </p>
+
+
+              <button id="crearfosil"> ok</button>
+            </div>
+            <hr>
+            <strong>Registro</strong>
+            <div id="scrolllogs" class="col-12" style="overflow-y: auto; height: 200px; border: solid 1px;">
+              <ul id="lista">
+
+
+
+
+
+              </ul>
+
+
+            </div>
+            
+            <form>
+
+              <p>
+                Errores : <input type="checkbox" name="chk" id="errores">
+              </p>
+              <p>
+                Avisos : <input type="checkbox" name="chk" id="avisos">
+              </p>
+              <p>
+                Info : <input type="checkbox" name="chk" id="info">
+              </p>
+            </form>
+            <hr>
+          
+            <div class="col-12" style="border: solid 1px">
+              <strong>Guardar/Cargar</strong></br>
+              <input type="text" id="nameconfig" placeholder="Nombre">
+              <textarea name="" id="" cols="30" rows="10" id="textconfig" placeholder="Comentarios"></textarea>
+              <button id="guardar" class="btn btn-success">guardar</button>
+              <button id="cargar" class="btn btn-warning">Cargar</button>
+            </div>
+            <strong>Puntuación</strong>
+            <div class="col-12"></div>
+
+            <table class="table table-dark" id="tablaDatos">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Puntos</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="tp">
+
+                  <td data-kill="0">0</td>
+                  <td data-live="0">0</td>
+                  <td data-mas="0"> 0</td>
+
+
+
+                </tr>
+                <tr id="pt">
+
+                  <td data-kill="0">0</td>
+                  <td data-live="0">0</td>
+                  <td data-mas="0"> 0</td>
+
+
+                </tr>
+                <tr id="pt">
+
+                  <td data-kill="0">0</td>
+                  <td data-live="0">0</td>
+                  <td data-mas="0"> 0</td>
+
+
+                </tr>
+
+              </tbody>
+            </table>
+            <strong>URL de Configuración</strong>
+            <div class="col 12">
+
+              <p>
+                URL: <input type="text" id="texturl"></br>
+                <button id="cargarurl" class="btn btn-warning">Cargar</button>
+                <button id="verrurl" class="btn btn-info">ver</button>
+                <button id="guardarrurl" class="btn btn-success">Guardar</button></br>
+                <a href="">Enlace con config</a>
+              </p>
+
+
+            </div>
+            <strong>Guardar/Cargar estado de la app</strong>
+            <div class="col 12">
+
+              <textarea name="" id="textjson" cols="30" rows="10"></textarea>
+              <button id="importarjson" class="btn btn-warning">Importar</button>
+              <button id="exportarjson" class="btn btn-info">exportar</button>
+              <button id="limpiarjson" class="btn btn-success">limpiar</button>
+
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+
+
+
+  </div>
+  <script src="JuegoSelva.js" defer>
+
+  </script>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
