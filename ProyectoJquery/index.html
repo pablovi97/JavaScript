@@ -121,10 +121,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-    <script>
+     <script>
 
 
-$(".bola").hide();
+        //$(".bola").hide();
         var miMapa = new Map();
         miMapa.set("windows", "valor asociado con 'una cadena'");
         miMapa.set("windows", "valor asociado con claveObj");
@@ -134,24 +134,38 @@ $(".bola").hide();
         miMapa.set("linux", "valor asociado with claveFunc");
 
 
+
+        $('#reinicio').click(function () {
+            // Recargo la página
+            location.reload();
+
+        });
+
         $("#jugar").on("click", function () {
 
+            $(this).prop('disabled', true);
+            miMapa.forEach((v, k) => {
 
-miMapa.forEach((v,k)=>{
 
+                $('.almacen').append('<div class="bola">' + v + '</div>');
 
-    $('.almacen').append('<div class="bola">'+v+'</div>');
+            })
 
-})
+            $("#pregunta_act").text("prueba de pregunta!!!!!");
 
-     
             //$(".bola").show().text("hola");
-
 
         });
 
 
+        $('.bola').on('click', function () {
 
+
+
+            $(this).val()
+
+
+        });
     </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
