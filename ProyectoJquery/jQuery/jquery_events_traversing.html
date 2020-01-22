@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button type="button" id="test">Hola</button>
+
+    <a href="http://www.google.com" id="test2">Ir a google</a>
+
+    <div id="div1" style="border: 1px solid red">
+        &nbsp;
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+
+    </div>
+
+    <div>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+        <p>sdfsd</p>
+    </div>
+
+    <input type="text" id="i1">
+    <input type="text" id="i2">
+
+    <ul id="lista">
+        <li>Test 1</li>
+        <li>Test 2</li>
+        <li>Test 3</li>
+        <li>Test 4</li>
+        <li>Test 5</li>
+
+    </ul>
+
+    <button type="button" id="boton1">Probar1</button>
+    <button type="button" id="boton2">Probar2</button>
+    <input type="text" id="input1">
+
+    <button type="button" id="boton3">Probar3</button>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(function () {
+
+            $("#input1").on("focus", function () { console.log("XXX"); });
+            $("#boton1").on("click", function () { $("#input1").trigger("focus") });
+            $("#boton2").on("click", { dato: 5, pepe: 8 }, function (e) { alert(e.data.pepe); $("#input1").triggerHandler("focus") });
+
+            $("#boton3").on({ "click": () => alert("X"), "mouseover": () => alert("M") });
+
+            console.log($("div").filter("p").length);
+
+            $div = $("div");
+            console.log("X2", $div.filter("p").length());
+
+
+
+
+
+
+            // click, dblclick, change, keypress|up|down, blur, focus, 
+            // focusin, focusout, hover, mousedown|up|enter|leave|move|over|out,
+            // resize, scroll, select, submit...
+
+            /*
+            $("#div1").on("click", "input", function (e) {
+                alert('Hola!');
+                $(this).css("border", "1px solid red");
+                e.preventDefault();
+                e.stopPropagation();
+                console.log(e.x, e.y)
+                return false;
+            });
+    
+            function f2() {
+                alert("Adiós");
+            } 
+            */
+
+
+
+            //function f1(e) { 
+            //    $(this).css("color", "blue");
+            //    };
+
+            //let f = [function() {alert("X")}, f2];
+
+            $("#test2").on("click", () => $("#i1").css("background-color", "red"));
+            $("#i1").on("click", function () {
+                $(this).css("background-color", "lightgray");
+            })
+
+
+
+            //$("#lista").on("click", "li", f[0]);  
+            //    $("#lista").on("click", "li", f2);
+            //$("#lista").on("alpaca", function() { alert("Ñan nam")});
+
+            //$("#lista").off("click", "li", f[0]);  // Solo
+
+            $("#div1").on("focus", function () {
+                $("#test2").triggerHandler("focus");
+
+
+            });
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

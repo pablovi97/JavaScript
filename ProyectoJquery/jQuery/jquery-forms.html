@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulario" name="formulario">
+        <input type="text" id="nombre" name="nombre" value="Pepe">
+        <input type="checkbox" id="mayor_edad" name="mayor_edad" value="Ok">
+        <select id="sexo" name="sexo">
+            <option value="mujer">Mujer</option>
+            <option value="hombre">Hombre</option>
+            <option value="nose">No sé, no contesto</option>
+        </select>
+        <textarea id="comentario" name="comentario"></textarea>
+
+        <button type="button" id="mostrar_texto">Mostrar Texto</button>
+        <button type="button" id="mostrar_array">Mostrar Array</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        $("#mostrar_texto").on("click", function() {
+            console.log($("#formulario").serialize());
+        })
+        $("#mostrar_array").on("click", function() {
+            console.log($("#formulario").serializeArray());
+        })
+    </script>
+</body>
+</html>

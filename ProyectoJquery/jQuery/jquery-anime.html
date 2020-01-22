@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        div.bola {
+            border: 1px solid red;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: relative;
+            background-color: blanchedalmond;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="bola" id="test"></div>
+
+
+       <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    
+<script>
+
+    function elasticidad(tam, id) {
+        const tiempo = 1000;
+        const original = 50;
+        const cambio = 10;
+
+        $(id).animate({width: tam, height: tam}, tiempo);
+        tam = (tam > original) ? original - cambio : original + cambio;
+        setTimeout(elasticidad, tiempo, tam, id);
+
+    }
+
+    function mevuelvoloca(id) {
+        const dist = 200;
+        const tiempo = 1000;
+
+        let x = Math.random() * (window.innerWidth - dist) + dist;
+        let y = Math.random() * (window.innerHeight - dist) + dist;
+
+        $(id).animate({left: x, top: y}, tiempo);
+        setTimeout(mevuelvoloca, tiempo, id);
+    }
+
+    function mevuelvoloca_samespeed(id) {
+        const dist = 200;
+        const factor = 0.1;
+
+        // Nueva posición
+        let x = Math.random() * (window.innerWidth - dist) + dist;
+        let y = Math.random() * (window.innerHeight - dist) + dist;
+        let pos = $(id).position(); // Posición nueva
+
+        // Calculo la distancia entre la posición actual y la nueva
+        let difx = pos.left - x;
+        let dify = pos.top - y;
+        let distance = Math.sqrt(difx*difx + dify*dify);
+        let tiempo = distance * factor;
+
+        // Desplazo
+        $(id).animate({left: x, top: y}, tiempo);
+        setTimeout(mevuelvoloca_samespeed, tiempo, id);
+    }
+
+    $(function() {
+        //elasticidad(50, "#test");
+        //mevuelvoloca("#test");
+        mevuelvoloca_samespeed("#test");
+
+        $("#test")
+            .on("click", function() {
+                $(this).stop().clearQueue();
+                alert("¡Ganaste!!!!")
+            })
+            .on("mouseover", function() {
+                $(this).stop().clearQueue();
+                alert("¡Ganaste!!!!")
+            })
+    })
+
+
+
+</script>    
+</body>
+</html>

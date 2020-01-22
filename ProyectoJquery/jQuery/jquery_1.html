@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jQuery</title>
+
+    <style>
+        .resalta {
+            color: blue;
+        }
+    
+    </style>
+</head>
+<body>
+    
+
+    <div id="test">A</div>
+    <div id="test1">B</div>
+    <div id="test2">C</div>
+    <div id="test3">D</div>
+
+    <input type="text">
+    <input type="text">
+    <input type="text">
+    <input type="text">
+    <input type="text">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+
+
+        /*var jq = jQuery.noConflict();
+
+        jq(function() {
+
+            jq("div").text("Hola!");
+
+
+
+        }); */
+
+
+
+/*
+        if ($("div").length) {
+            alert("Hay input!!");
+        }
+        else {
+            alert("No Hay input!!");
+        }
+*/
+        // Pasar de un objeto vanilla JS --> jQuery
+        var test = document.getElementById('test');
+        $(test).text("Hola hola caracola");
+
+
+        // Pasar de un objeto jQuery --> vanilla JS
+        var $test = $("#test");
+        $test.get(0).innerText += " adios adios caracol "
+
+
+        test.innerText += "Hola soy JS";
+        //test.classList.add("resalta")
+        $test.text($test.text()+ " Hola soy jQuery");
+        $test.addClass("resalta");  // para varias $test.addClass("resalta1 resalta2")
+        $test.removeClass("resalta");
+        $test.toggleClass("resalta");
+        console.log("Tiene clase resalta?? ", $test.hasClass("resalta"));
+
+        //test.onclick(...)
+        $test.click(function() {
+
+            this.innerText = "sadfsad";
+            $(this).text("asdfasdf");
+            $(this).toggleClass("resalta");
+
+        });
+
+        /*
+        .text();
+        .html();
+        .val();
+        */
+
+        
+        console.log("text ->", $("div").text("A<strong>A</strong>A").text());
+        console.log("html ->", $("div").html("A<strong>A</strong>A").html());
+        console.log("val ->", $("input").val("123").val());
+        //console.log("val ->", $("input").attr("disabled", "").attr("readonly", ""));
+        console.log("attr ->", $("input").attr({disabled: "", readonly: ""}));
+        console.log("prop ->", $("input").prop({disabled: "", readonly: ""}));
+        console.log("css  ->", $("input").css({border: "1px solid red", "background-color": "grey", backgroundColor: "grey"}));
+
+
+
+
+        
+        
+
+
+
+
+
+    
+    </script>
+</body>
+</html>

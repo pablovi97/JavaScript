@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+        <style>
+            .prueba {
+                width: 300px;
+                position: absolute;
+            }
+        </style>
+</head>
+
+<body>
+
+
+
+
+
+    <script>
+
+        //$(document).ready(function () { --> "deprecated"
+
+        //$(init);
+        //function init () {
+
+        $(function() {
+
+            console.log($('.prueba').text());
+            $('.prueba')
+                .text('Ya hice la prueba')
+                .css("border", "1px solid red")
+                .css("background-color", "blue")
+                .css("color", "white")
+                .fadeOut(1000)
+                .fadeIn(1000)
+                .animate({left: '10px', height: '20px'})
+            ;
+            //document.getElementById('prueba').innerText = 'Ya hice la prueba';
+
+            $('#marcar').click(() => $(':checkbox').prop('checked', true));
+            $('#desmarcar').click(() => $(':checkbox').prop('checked', false));
+            $('#cambiar').click(() => $(':checkbox').each(function (i, v) {
+                $(this).prop('checked', !$(this).prop('checked'));
+                }))
+
+        });
+
+    </script>
+
+    <div class="prueba">Esto es un texto</div>
+    <div class="prueba">que me acabo</div>
+    <div class="prueba">de inventar</div>
+    <div class="prueba">para hacer una prueba</div>
+    <div>Aquí no hay nada</div>
+
+    <input type="checkbox"> A
+    <input type="checkbox"> B
+    <input type="checkbox"> C
+    <input type="checkbox"> D
+    <input type="checkbox"> E
+    <input type="checkbox"> F
+
+
+    <button type="button" id="marcar">Marcar</button>
+    <button type="button" id="desmarcar">Desmarcar</button>
+    <button type="button" id="cambiar">Cambiar</button>
+
+    <!--
+
+    Cargar aquí PRIMERO jQuery
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+
+    LUEGO todo mi código:
+    <script src="...">
+
+    -->
+
+    <script>
+
+        let obj = {"pimentón de canela": "aa"}
+
+        mapa.set("pimentón de canela", "")
+    
+    
+    </script>
+
+</body>
+
+</html>

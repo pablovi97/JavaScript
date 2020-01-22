@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    div {
+        border: 1px solid red;
+    }
+    span {
+        border: 1px solid blue;
+    }
+    </style>
+</head>
+<body>
+
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illum atque illo eos modi obcaecati minima, ratione esse est non sit aut vel porro ut dolorem, at qui! Nobis, culpa!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illum atque illo eos modi obcaecati minima, ratione esse est non sit aut vel porro ut dolorem, at qui! Nobis, culpa!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illum atque illo eos modi obcaecati minima, ratione esse est non sit aut vel porro ut dolorem, at qui! Nobis, culpa!</p>
+        <span>XX</span>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illum atque illo eos modi obcaecati minima, ratione esse est non sit aut vel porro ut dolorem, at qui! Nobis, culpa!</p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum illum atque illo eos modi obcaecati minima, ratione esse est non sit aut vel porro ut dolorem, at qui! Nobis, culpa!</p>
+        <span>XX</span>
+
+        <button type="button" id="pon_negrita">Poner negrita</button>
+        <button type="button" id="quitar_negrita">Quitar negrita</button>
+
+ 
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+
+
+
+        $(function() {
+
+            // BEFORE <div> PREPPEND  XXX  APPEND </div> AFTER
+
+            //$('<input type="password/>', {id: "nombre", value: 4, type: "password"}).appendTo($("body"));
+
+        /*
+        // CREACIÓN
+        let elem  = document.createElement("div");
+        //let $elem1 = $('<div/>', { id: "primero", class: "pepe"});
+
+        let $elem = $('<div/>');
+        $elem.attr("id", "primero");
+        //$elem.attr("class", "primero");
+        $elem.addClass("primero");
+        $elem.text("XXXX");
+
+        let $newElem = $elem.clone() // true --> copia profunda, con eventos y demás
+
+
+        
+
+        // INSERCIÓN
+        /*
+        // old.insert(new) "Nombres cortos"
+        $("body").append($elem);
+        $elem.prepend($("<p/>").text("Hola Antes"));
+        $elem.append($("<p/>").text("Hola Después"));
+        $elem.before($("<p/>").text("Hola Before"));
+        $elem.after($("<p/>").text("Hola After"));
+        $elem.replaceWith($("<p/>").text("Hola After")); // REEMPLAZAR
+
+        // new.insert(old) "Nombres largos"
+        ($("<p/>").text("Hola Antes2")).prependTo($elem);
+        ($("<p/>").text("Hola Después2")).appendTo($elem);
+        ($("<p/>").text("Hola Before2")).insertBefore($elem);
+        ($("<p/>").text("Hola After2")).insertAfter($elem);
+        ($("<p/>").text("Hola After2")).replaceAll($elem);  // REEMPLAZAR
+        */
+
+        ($("<p/>").text("Hola Antes2")).prependTo($("div"));
+
+        // ELIMINAR
+        //$("div").remove();  // --> Borra todos los divs y TODO lo que esté dentro
+        //$("div").empty();  // --> Borra TODO lo que esté dentro (pero NO a mí)
+        // $divs = $("div").detach();  // --> Retira del DOM
+
+        
+
+
+
+
+        // ENVOLTURA (WRAPPING)
+
+        $("p").wrap("<div/>");
+        //$("p").wrapAll("<div/>");
+        //$("p").wrapInner("<span/>");
+        $("p").unwrap();
+
+        $("#pon_negrita").on("click", function() {
+            $("p").wrap("<strong/>");
+        })
+
+        $("#quitar_negrita").on("click", function() {
+            $("p").unwrap("strong");
+        })
+
+    });
+
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+        Texto -1
+    <p>Texto 0</p>
+
+    <div>
+        <p>Texto1</p>
+    </div>
+
+    <div>
+        <p>Texto2</p>
+    </div>
+
+    <div class="pepe">
+        <p>Texto3</p>
+    </div>
+
+    <div>
+            <span>Texto4</span>
+        </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        //$('div').filter("p").css("border", "1px solid red");
+        //$('div').find("p").css("border", "1px solid red");
+        // $('div').has("p").css("border", "1px solid red");
+        //$('div p').css("border", "1px solid red");
+        $('div')
+            .filter(".pepe")
+                .css("border", "1px solid red")
+            .end()
+            .css("background-color", "lightgrey")
+        ;
+
+        console.log($('div p').each(function() { 
+            //$(this).text(this.innerText.toUpperCase()); 
+            this.innerText =  this.innerText.toUpperCase();
+        })); 
+        
+
+        // MAP()
+        console.log($('div p').map(function() { return $(this).text(); }).get().join());
+
+        // IS()
+        console.log($('div').is(".pepe"));
+
+        // CONTENTS
+        $("body")
+            .contents()
+            .filter(function() {
+                return this.nodeType === 3;
+            })
+            .wrap("<strong/>")
+  
+
+            
+
+
+        
+
+
+
+
+
+    </script>
+</body>
+
+</html>

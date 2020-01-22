@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        div {
+            padding: 10px;
+        }
+    
+    </style>
+</head>
+<body>
+
+    <input type="text" id="i1">
+
+    <div>
+        <div>
+            
+    <ul id="lista">
+        <li id="t1">Texto01</li>
+        <li>Texto02<div>XXXX</div></li>
+        <li>Texto03</li>
+        <li>Texto04</li>
+        <li id="t5">Texto05</li>
+        <li><div>Texto06</li>
+        <li><input ><input></li>
+        <li>Texto08</li>
+    </ul>
+    </div>
+    </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        //$("#lista li:odd").css("color", "red");
+        //$("#lista li:even").css("color", "violet");
+        //$("#lista li").eq(4).css("color", "blue");
+
+        $("#lista li")
+        /*
+            .filter(":odd").css("color", "red").end()
+            .filter(":even").css("color", "violet").end()
+            .eq(4).css("color", "blue").end()
+            .eq(6)
+                .children("input")
+                    .css("background-color", "grey")
+                .end()
+            .end()
+            .add("#i1")
+            .css("border", "1px solid red")
+        */
+            //.last().css("color", "red").end()
+            //.first().css("color", "red").end()
+            //.eq(3).prevAll().css("color", "blue").end()
+            //.first().nextUntil("#t5").addBack().add("#t5").css("color", "blue")
+            //.not("#t5,#t1").css("color", "blue")
+            .first().parents("div").eq(0).css("border", "1px solid red")
+
+        ;
+    
+
+    </script>
+</body>
+</html>

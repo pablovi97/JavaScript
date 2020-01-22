@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input id="poke_id" type="number" min="1" step="1">
+    <span id="poke_info"></span>
+
+    <br /><br />
+
+    <input id="busqueda" type="search" list="opciones">
+    <datalist id="opciones"></datalist>
+
+    <textarea id="log"></textarea>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+
+        function process(data) {
+            
+            if ($("#busqueda").val().toLowerCase() == data[0].toLowerCase()) {
+                // Comprobamos que los resultados son de la búsqueda actual!!
+                $("#opciones").children().remove();  // Borrar todas las opciones antiguos
+                console.log(data);
+                $.each(data[1], function (clave, valor) {  // Para cada resultado construyo una opción
+                    $("#opciones")
+                        .append($("<option/>")
+                            .attr("value", valor)
+                            .text(valor));
+                });
+            }
+        }
+
+        function inicializa() {
+
+            $("#poke_info").text("");
+            $("#poke_id").val(1).trigger("input");
+            //validate(document.getElementById('poke_id'));
+        
+            $("#busqueda").val("");
+            $("#opciones").children().remove();
+        }
+
+        function ajaxlog(msg, xhr, opt) {
+            let texto = " \n" + msg;
+
+            if (opt) {
+                texto += " | " + opt.url;
+            }
+            if (xhr) {
+                texto += " | " + xhr.status + " (" + xhr.statusText + ")";
+            }
+            console.log(texto);
+            $("#log").text($("#log").text() + texto);
+        }
+
+        
+
+        $(function () {
+            // document.ready
+
+            // Antes de hacer nada, INICIALIZO y VALIDO el formulario
+            // inicial para evitar errores:
+            inicializa();
+            
+            
+            
+            
+            let pokeapi_url = "https://pokeapi.co/api/v2/pokemon/";
+            $("#poke_id").on("input", function () {
+
+                // $("#poke2_info").load(pokeapi_url + this.value); --> SI quiero cargar HTML
+                $("#poke_info").text("");  // -> cada vez que cambia, borro!!
+
+                // if (valida(poke_id)) SÓLO realizamos el GET, cuando
+                // hayamos validado la entrada --> 
+                // (no quiero perder tiempo ni molestar al servidor con datos erróneos
+                // hay que comprobar primero!!!)                
+                if (/\d+/.test($("#poke_id").val())) {  // Validación mejorable
+
+                    $.getJSON(pokeapi_url + this.value)
+                        .done(function (data) {
+                            console.log(data);
+                            if (data["id"] == $("#poke_id").val()) {
+                                $("#poke_info").text("nombre: " + data["name"] + ", peso: " + data["weight"] + " (id: " + (data["id"]) + ")")
+                            }
+                        })
+                        .fail(function (data) {
+                            console.log(data);  // Comprobar cuál fue el error, e informar al usuario
+                            $("#poke_info").text("¡ERROR!");
+                        })
+                        ;
+                }
+
+            });
+
+
+            // Búsqueda en la wikipedia
+
+            let wikiapi_url = "https://es.wikipedia.org/w/api.php";
+            $("#busqueda").on("input", function () {
+             // jQuery con AJAX + jsonp
+                $.ajax({
+                    url: wikiapi_url, // + "&callback=process",
+                    data: {
+                        action: "opensearch",
+                        limit:10,
+                        format: "json",
+                        search: this.value
+                    },
+                    dataType: "jsonp",
+                    jsonpCallback: "process"
+                });  
+
+                /* jQuery añadiendo "a mano" el script para jsonp
+                if (this.value != '') {
+                    $script = $("#src_jsonp").length ?  $("#src_jsonp") :
+                                    $("<script>", {id: "src_jsonp" });
+                    $script.attr("src", wikiapi_url + "?action=opensearch&limit=10&format=json&search="+this.value+"&callback=process");
+                    $('body').append($script);
+                }
+                else {
+                    $("#src_jsonp").remove();
+                    $("#opciones").children().remove();
+                } */
+
+            });    
+
+            
+            
+            $(document)
+                .ajaxComplete(function(e, xhr, opt) { 
+                    ajaxlog("Complete ", xhr, opt); 
+                })
+                .ajaxSend(function(e, xhr, opt) { 
+                    ajaxlog("Send ", xhr, opt); 
+                })
+                .ajaxSuccess(function(e, xhr, opt) { 
+                    ajaxlog("Success ", xhr, opt); 
+                })
+                .ajaxError(function(e, xhr, opt) { 
+                    ajaxlog("Error ", xhr, opt); 
+                })
+                .ajaxStart(function(e, xhr, opt) { 
+                    ajaxlog("Start ", xhr, opt); 
+                })
+                .ajaxStop(function(e, xhr, opt) { 
+                    ajaxlog("Stop ", xhr, opt); 
+                })
+                
+        
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

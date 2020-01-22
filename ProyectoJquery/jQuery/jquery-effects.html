@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .pelota {
+            border: 2px dashed orange;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: relative;
+        }
+    
+    </style>
+</head>
+<body>
+
+    <div class="pelota uno">1</div>
+    <div class="pelota dos">2</div>
+    <div class="pelota tres">3</div>
+    <button type="button" id="todas">Todas</button>
+    <button type="button" id="stop">Parar</button>
+
+    <input type="text" id="valor">
+    
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $.fx.speeds.slow = 10000;
+        $.fx.speeds.fast = 1000;
+        //$.fx.off = true;
+
+        $(".pelota").on("click", function() {
+            //$(this).hide(function() {
+            //    $("#valor").val($(this).text());
+            //    $(this).remove();   // Función CALLBACK --> SOLO se ejecuta al TERMINAR
+            //});
+
+            //$(this).fadeOut(1000).delay(1000).fadeIn(1000).css("background-color", "blue");
+            $(this)
+                .animate({
+                    top: (window.innerHeight-100)+"px", 
+                    left: (window.innerWidth-100)+"px", 
+                    "border-width": "15px",
+                    opacity: 0.75
+                }, 1000, "swing", function() {
+                    // alert("Llegué!!")
+                })
+
+                .animate({
+                    top: "10px", 
+                    left: "10px",
+                    borderWidth: 1,
+                    opacity: 1
+                }, 1000, "linear")
+
+
+        });
+
+        $("#todas").on("click", function() {
+            $(".pelota") 
+                .eq(0).fadeOut(10000).end()
+                .eq(1).fadeOut(1000).end()
+                .eq(2).fadeOut().end()
+            ;
+        });
+
+        $("#stop").on("click", function() {
+
+            //.stop ([parar_todo, ir_al_final])
+            //$("div.pelota:animated").stop(true, true); 
+            $("div.pelota:animated").finish(); 
+
+            .queue()
+            .dequeue()
+
+        });
+
+        console.log($.fx);
+
+    </script>
+</body>
+</html>
