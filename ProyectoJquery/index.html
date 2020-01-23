@@ -121,22 +121,42 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-     <script>
+    <script>
 
 
         //$(".bola").hide();
+
+        class Pregunta {
+            respuesta = Array();
+            nivel;
+            preguntas;
+            constructor(nivel, preguntas, respuesta) {
+                this.respuesta = respuesta;
+                this.preguntas = preguntas;
+                this.nivel = nivel;
+
+
+            }
+        }
+
+        arrw = [new Pregunta("1", "como se copian archivos ?", ["cp", "ls", "wget", "mkdir", "sudo"])
+            , new Pregunta("1", "como se mueven archivos ?", ["mv", "cp", "curl", "mkdir", "netstat -aon"])
+            , new Pregunta("2", "como se descargan archivos de internet ?", ["wget", "curl", "dir", "ls -n", "netstat -aon"])
+        ];
+
+        arrl = [new Pregunta("1", "como se lista un directorio ?", ["ls", "cp", "ni", "curl", "netstat -punta"])
+            , new Pregunta("1", "como se ve el mapa de directorios ?", ["tree", "cp", "curl", "mkdir", "netstat -aon"])
+            , new Pregunta("2", "como se ven los puertos activos ?", ["netstat -punta", "dir", "ls -n", "netstat -aon"])
+        ];
         var miMapa = new Map();
-        miMapa.set("windows", "valor asociado con 'una cadena'");
-        miMapa.set("windows", "valor asociado con claveObj");
-        miMapa.set("windows", "valor asociado with claveFunc");
-        miMapa.set("linux", "valor asociado con 'una cadena'");
-        miMapa.set("linux", "valor asociado con claveObj");
-        miMapa.set("linux", "valor asociado with claveFunc");
+
+        miMapa.set("windows", arrw);
+        miMapa.set("linux", arrl);
+
 
 
 
         $('#reinicio').click(function () {
-            // Recargo la página
             location.reload();
 
         });
@@ -146,14 +166,18 @@
             $(this).prop('disabled', true);
             miMapa.forEach((v, k) => {
 
+                v.forEach(element => {
+                    $("#pregunta_act").text(element.preguntas);
+                    element.respuesta.forEach(resp => {
 
-                $('.almacen').append('<div class="bola">' + v + '</div>');
+                        $('.almacen').append('<div class="bola">' + resp + '</div>').css("color:white; text-algin:center;");
+                    })
+                    return;
 
+                })
+
+                return;
             })
-
-            $("#pregunta_act").text("prueba de pregunta!!!!!");
-
-            //$(".bola").show().text("hola");
 
         });
 
@@ -166,7 +190,6 @@
 
 
         });
-    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
