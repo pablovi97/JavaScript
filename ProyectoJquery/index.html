@@ -115,10 +115,15 @@
 
 
     </div>
+    <!--
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
-    <script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
 
 
         //$(".bola").hide();
@@ -176,7 +181,12 @@
             $(this).prop('disabled', true);
 
             generarbolas();
-
+            
+            $(document).find(".ball").eq(0).css("border", "1px solid red")
+            .eq(1).css("border", "1px solid green")
+            .eq(2).css("border", "1px solid gray")
+            .eq(3).css("border", "1px solid yellow")
+            .eq(4).css("border", "1px solid purple")
         });
 
         //evento de click de las bolas
@@ -187,17 +197,26 @@
             if (respuesta_act == respuesta) {
                 $(document).find(".ball").remove();
                 $('#lista').append("<li>" + preg + "</li>");
-               // i++;
-               // generarbolas();
-               puntos+=10;
-               acertadas+=1;
-               $("#puntos").text(puntos);
-               $("#acertadas").text("respuestas acertadas :" +acertadas);
-               acertar();
+                // i++;
+                // generarbolas();
+                puntos += 10;
+                acertadas += 1;
+              
+                $("#puntos").text(puntos);
+                $("#acertadas").text("respuestas acertadas :" + acertadas);
+                acertar();
+                ganar();
             } else {
-                puntos-=10;
-               $("#puntos").text(puntos);
+
+                puntos -= 10;
+                $("#puntos").text(puntos);
+                /*$(document).ready(function() {
+              $( this).effect('slide', {direction: 'right', mode: 'hide'}, 500);
+        
+                });
+                */
                 $(this).remove();
+                perder();
                 //$(this).slideUp(5000).end().remove();
             }
         })
@@ -207,23 +226,40 @@
         function acertar() {
             if ($('#Ambos').prop('checked')) {
                 i++;
-                generarbolas() ;
+                generarbolas();
             } else if ($('#Windows').prop('checked')) {
                 j++;
-                generarbolas() ;
+                generarbolas();
             } else {
                 k++;
-                generarbolas() ;
+                generarbolas();
             }
         }
 
-
-        function generarbolas() {
+        function ganar() {
+            if ($("#puntos").text() == 50) {
+                $(document).ready(function () {
+                    alert("has ganado!");
+                    $( "body" ).data( "partida" ,  puntos );
+                    location.reload();
+                });
+            }
+        }
+        function perder(){
+            if ($("#puntos").text() == '-20') {
+                $(document).ready(function () {
+                    alert("has perdido!");
+                    location.reload();
+                });
+            }
+        }
+        function generarbolas() { 
 
             if ($('#Ambos').prop('checked')) {
                 let value = miMapa.get("ambos");
                 $("#pregunta_act").text(value[i].preguntas);
                 preg = value[i].preguntas;
+                $("#pendientes").text("preguntas pedientes "+value.length);
                 for (let resp of value[i].respuesta) {
                     $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
                     respuesta = value[i].respuesta[0];
@@ -232,6 +268,7 @@
                 let value = miMapa.get("windows");
                 $("#pregunta_act").text(value[j].preguntas);
                 preg = value[j].preguntas;
+                $("#pendientes").text("preguntas pedientes "+value.length);
                 for (let resp of value[j].respuesta) {
                     $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
                     respuesta = value[j].respuesta[0];
@@ -240,11 +277,13 @@
                 let value = miMapa.get("linux");
                 $("#pregunta_act").text(value[k].preguntas);
                 preg = value[k].preguntas;
+                $("#pendientes").text("preguntas pedientes "+value.length);
                 for (let resp of value[k].respuesta) {
                     $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
                     respuesta = value[k].respuesta[0];
                 }
             }
+
 
         }
 
