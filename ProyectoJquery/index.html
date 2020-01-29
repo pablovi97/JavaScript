@@ -95,7 +95,7 @@
                             Segundos entre respuesta: <input type="number" min="0" max="700" id="sr">
                         </p>
                         <p>
-                            Nº respuestas para perder: <input type="number" min="0" max="700" id="nrp">
+                            Nº respuestas para perder: <input type="text" id="repuesta_perder">
                         </p>
                     </div>
                 </div>
@@ -116,12 +116,12 @@
 
     </div>
     <!--
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+ 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
         integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
 
@@ -170,6 +170,12 @@
         var preg = "";
         var puntos = 0;
         var acertadas = 0;
+        var intentos = $("#repuesta_perder").val();
+        console.log("inetens :" + intentos);
+        var mediaIntentosPreg = 0;
+        var numpreg = 0;
+        var pregTablero = 0;
+        var pendientes = 0;
         //reiniciar juego
         $('#reinicio').click(function () {
             location.reload();
@@ -181,12 +187,13 @@
             $(this).prop('disabled', true);
 
             generarbolas();
-            
-            $(document).find(".ball").eq(0).css("border", "1px solid red")
-            .eq(1).css("border", "1px solid green")
-            .eq(2).css("border", "1px solid gray")
-            .eq(3).css("border", "1px solid yellow")
-            .eq(4).css("border", "1px solid purple")
+
+            /* $(document).find(".ball").eq(0).css("border", "1px solid red") 
+                 .eq(1).css("border", "1px solid green")
+                 .eq(2).css("border", "1px solid gray")
+                 .eq(3).css("border", "1px solid yellow")
+                 .eq(4).css("border", "1px solid purple");
+                 */
         });
 
         //evento de click de las bolas
@@ -201,13 +208,19 @@
                 // generarbolas();
                 puntos += 10;
                 acertadas += 1;
-              
+          
                 $("#puntos").text(puntos);
                 $("#acertadas").text("respuestas acertadas :" + acertadas);
                 acertar();
                 ganar();
             } else {
+                mediaIntentosPreg++;
+                $("#rp").val(mediaIntentosPreg / numpreg);
+                pregTablero--;
 
+                $("#tablero").text("preguntas en el tablero :" + pregTablero);
+                intentos = intentos - 1;
+                $("#repuesta_perder").text(intentos);
                 puntos -= 10;
                 $("#puntos").text(puntos);
                 /*$(document).ready(function() {
@@ -218,6 +231,7 @@
                 $(this).remove();
                 perder();
                 //$(this).slideUp(5000).end().remove();
+
             }
         })
 
@@ -240,51 +254,75 @@
             if ($("#puntos").text() == 50) {
                 $(document).ready(function () {
                     alert("has ganado!");
-                    $( "body" ).data( "partida" ,  puntos );
+                   
+                   let res =  JSON.stringify({
+                        "puntos" : puntos ,
+                        "mediaIntentosPreg" : mediaIntentosPreg
+                    });
+                    localStorage.setItem('miGato', 'Juan');
                     location.reload();
                 });
             }
         }
-        function perder(){
+        function perder() {
             if ($("#puntos").text() == '-20') {
+                $(document).ready(function () {
+                    alert("has perdido!");
+                    location.reload();
+                });
+            } else if (intentos == 0) {
                 $(document).ready(function () {
                     alert("has perdido!");
                     location.reload();
                 });
             }
         }
-        function generarbolas() { 
 
+        function generarbolas() {
+            pregTablero = 0;
+            numpreg++;
             if ($('#Ambos').prop('checked')) {
                 let value = miMapa.get("ambos");
+                if( i < value.length){
                 $("#pregunta_act").text(value[i].preguntas);
                 preg = value[i].preguntas;
-                $("#pendientes").text("preguntas pedientes "+value.length);
+                pendientes = value.length;
+                $("#pendientes").text("preguntas pedientes " + (pendientes - i));
                 for (let resp of value[i].respuesta) {
                     $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
                     respuesta = value[i].respuesta[0];
+                    pregTablero++;
+                }
                 }
             } else if ($('#Windows').prop('checked')) {
                 let value = miMapa.get("windows");
+                if( j < value.length){
                 $("#pregunta_act").text(value[j].preguntas);
                 preg = value[j].preguntas;
-                $("#pendientes").text("preguntas pedientes "+value.length);
+                pendientes = value.length;
+                $("#pendientes").text("preguntas pedientes " + (pendientes - j));
                 for (let resp of value[j].respuesta) {
                     $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
                     respuesta = value[j].respuesta[0];
+                    pregTablero++;
+                }
                 }
             } else {
                 let value = miMapa.get("linux");
+                if( k < value.length){
                 $("#pregunta_act").text(value[k].preguntas);
                 preg = value[k].preguntas;
-                $("#pendientes").text("preguntas pedientes "+value.length);
+                pendientes = value.length;
+                $("#pendientes").text("preguntas pedientes " + (pendientes -k));
                 for (let resp of value[k].respuesta) {
                     $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
                     respuesta = value[k].respuesta[0];
+                    pregTablero++;
                 }
             }
+            }
 
-
+            $("#tablero").text("preguntas en el tablero :" + pregTablero);
         }
 
     </script>
