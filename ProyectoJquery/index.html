@@ -24,6 +24,22 @@
             border-radius: 50%;
             position: relative;
             background-color: rebeccapurple;
+            text-align: center;
+            color: aliceblue;
+            animation-duration: 5s;
+            animation-name: slidein;
+        }
+
+        @keyframes slidein {
+            from {
+                margin-right: 100%;
+                width: 100%
+            }
+
+            to {
+                margin-right: 0%;
+                width: 100%;
+            }
         }
 
         .ball:hover {
@@ -89,13 +105,13 @@
                         </p>
 
                         <p>
-                            Respuestas por pregunta: <input type="number" min="0" max="700" id="rp">
+                            Respuestas por pregunta: <input type="number" min="0" max="5" id="rp">
                         </p>
                         <p>
-                            Segundos entre respuesta: <input type="number" min="0" max="700" id="sr">
+                            Segundos entre respuesta: <input type="number" min="0" max="1000" id="sr">
                         </p>
                         <p>
-                            Nº respuestas para perder: <input type="text" id="repuesta_perder">
+                            Nº respuestas para perder: <input type="number" min="0" max="1000" id="repuesta_perder">
                         </p>
                     </div>
                 </div>
@@ -115,14 +131,15 @@
 
 
     </div>
-    <!--
- 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
--->
+
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
 
 
@@ -170,12 +187,22 @@
         var preg = "";
         var puntos = 0;
         var acertadas = 0;
-        var intentos = $("#repuesta_perder").val();
+        var intentos = 0;
         console.log("inetens :" + intentos);
         var mediaIntentosPreg = 0;
         var numpreg = 0;
         var pregTablero = 0;
         var pendientes = 0;
+        var timer = 0;
+        var tiempo = 10000;
+        var bolaspreg = 0;
+
+        //Parar Intervalo
+        $("#pausa").click(function () {
+            clearInterval(timer);
+        });
+
+
         //reiniciar juego
         $('#reinicio').click(function () {
             location.reload();
@@ -185,7 +212,8 @@
         $("#jugar").on("click", function () {
 
             $(this).prop('disabled', true);
-
+            bolaspreg = $("#rp").val();
+            intentos = $("#repuesta_perder").val();
             generarbolas();
 
             /* $(document).find(".ball").eq(0).css("border", "1px solid red") 
@@ -194,6 +222,9 @@
                  .eq(3).css("border", "1px solid yellow")
                  .eq(4).css("border", "1px solid purple");
                  */
+
+            tiempo = $("#sr").val();
+            intervalodeTiempo();
         });
 
         //evento de click de las bolas
@@ -202,25 +233,27 @@
             respuesta_act = this.innerText;
             console.log(respuesta_act + " : " + respuesta);
             if (respuesta_act == respuesta) {
-                $(document).find(".ball").remove();
+                // $(document).find(".ball").remove();
                 $('#lista').append("<li>" + preg + "</li>");
                 // i++;
                 // generarbolas();
                 puntos += 10;
                 acertadas += 1;
-          
+
                 $("#puntos").text(puntos);
                 $("#acertadas").text("respuestas acertadas :" + acertadas);
                 acertar();
                 ganar();
             } else {
-                mediaIntentosPreg++;
-                $("#rp").val(mediaIntentosPreg / numpreg);
+                // mediaIntentosPreg++;
+                // $("#rp").val(mediaIntentosPreg / numpreg);
+
+
                 pregTablero--;
 
                 $("#tablero").text("preguntas en el tablero :" + pregTablero);
                 intentos = intentos - 1;
-                $("#repuesta_perder").text(intentos);
+                $("#repuesta_perder").val(intentos);
                 puntos -= 10;
                 $("#puntos").text(puntos);
                 /*$(document).ready(function() {
@@ -238,6 +271,7 @@
         //generar bolas y respuesta
 
         function acertar() {
+            $(document).find(".ball").remove();
             if ($('#Ambos').prop('checked')) {
                 i++;
                 generarbolas();
@@ -254,18 +288,18 @@
             if ($("#puntos").text() == 50) {
                 $(document).ready(function () {
                     alert("has ganado!");
-                   
-                   let res =  JSON.stringify({
-                        "puntos" : puntos ,
-                        "mediaIntentosPreg" : mediaIntentosPreg
+
+                    let res = JSON.stringify({
+                        "puntos": puntos,
+                        "mediaIntentosPreg": mediaIntentosPreg
                     });
-                    localStorage.setItem('miGato', 'Juan');
+                    localStorage.setItem('pregunta', res);
                     location.reload();
                 });
             }
         }
         function perder() {
-            if ($("#puntos").text() == '-20') {
+            if ($("#puntos").text() == '-50') {
                 $(document).ready(function () {
                     alert("has perdido!");
                     location.reload();
@@ -279,50 +313,62 @@
         }
 
         function generarbolas() {
+
             pregTablero = 0;
             numpreg++;
             if ($('#Ambos').prop('checked')) {
                 let value = miMapa.get("ambos");
-                if( i < value.length){
-                $("#pregunta_act").text(value[i].preguntas);
-                preg = value[i].preguntas;
-                pendientes = value.length;
-                $("#pendientes").text("preguntas pedientes " + (pendientes - i));
-                for (let resp of value[i].respuesta) {
-                    $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
-                    respuesta = value[i].respuesta[0];
-                    pregTablero++;
-                }
+                if (i < value.length) {
+                    $("#pregunta_act").text(value[i].preguntas);
+                    preg = value[i].preguntas;
+                    pendientes = value.length;
+                    $("#pendientes").text("preguntas pedientes " + (pendientes - i));
+                    for (let resp of value[i].respuesta) {
+                        if (pregTablero != bolaspreg) {
+                            $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
+                            respuesta = value[i].respuesta[0];
+                            pregTablero++;
+                        }
+                    }
                 }
             } else if ($('#Windows').prop('checked')) {
                 let value = miMapa.get("windows");
-                if( j < value.length){
-                $("#pregunta_act").text(value[j].preguntas);
-                preg = value[j].preguntas;
-                pendientes = value.length;
-                $("#pendientes").text("preguntas pedientes " + (pendientes - j));
-                for (let resp of value[j].respuesta) {
-                    $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
-                    respuesta = value[j].respuesta[0];
-                    pregTablero++;
-                }
+                if (j < value.length) {
+                    $("#pregunta_act").text(value[j].preguntas);
+                    preg = value[j].preguntas;
+                    pendientes = value.length;
+                    $("#pendientes").text("preguntas pedientes " + (pendientes - j));
+                    for (let resp of value[j].respuesta) {
+                        if (pregTablero != bolaspreg) {
+                            $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
+                            respuesta = value[j].respuesta[0];
+                            pregTablero++;
+                        }
+                    }
                 }
             } else {
                 let value = miMapa.get("linux");
-                if( k < value.length){
-                $("#pregunta_act").text(value[k].preguntas);
-                preg = value[k].preguntas;
-                pendientes = value.length;
-                $("#pendientes").text("preguntas pedientes " + (pendientes -k));
-                for (let resp of value[k].respuesta) {
-                    $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
-                    respuesta = value[k].respuesta[0];
-                    pregTablero++;
+                if (k < value.length) {
+                    $("#pregunta_act").text(value[k].preguntas);
+                    preg = value[k].preguntas;
+                    pendientes = value.length;
+                    $("#pendientes").text("preguntas pedientes " + (pendientes - k));
+                    for (let resp of value[k].respuesta) {
+                        if (pregTablero != bolaspreg) {
+                            $('.almacen').append("<div class=\"ball\">" + resp + "</div>");
+                            respuesta = value[k].respuesta[0];
+                            pregTablero++;
+                        }
+                    }
                 }
-            }
             }
 
             $("#tablero").text("preguntas en el tablero :" + pregTablero);
+        }
+
+        function intervalodeTiempo() {
+            timer = setInterval(acertar, tiempo);
+
         }
 
     </script>
