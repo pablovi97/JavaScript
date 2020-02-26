@@ -1,0 +1,16 @@
+
+<p><b>studio-ghibli works!</b></p>
+
+
+<!--Tuve problemas para poner boostrap se mequejaba todo el rato cuando ponia un </div> -->
+  <!--Aqui se ponen los componentes-->
+       <!--Introducimos datos en el metodo de lista "editStudio" y le introducimos lo obtenido en el [stuEdit]-->    
+        <app-studio-ghibli-edit *ngIf="lista.editStudio" [stuEdit]="lista.editStudio"></app-studio-ghibli-edit>
+        <!--Introducimos un nuevo Objeto validado en el metodo onAdd de lista-->
+        <app-studio-ghibli-new (newStu)="lista.onAdd($event)"></app-studio-ghibli-new>    
+        <!--Introducimos datos en el metodo de lista "selectedStudio" y le introducimos lo obtenido en el [stuInput]-->         
+        <app-studio-ghibli-details *ngIf="lista.selectedStudio"  [stuInput]="lista.selectedStudio"></app-studio-ghibli-details>
+        <!--Introducimos una etiqueta a lista ya que vamos a usar otros componentes sobre este-->
+        <app-studio-ghibli-lista #lista><app-studio-ghibli-lista>
+
+

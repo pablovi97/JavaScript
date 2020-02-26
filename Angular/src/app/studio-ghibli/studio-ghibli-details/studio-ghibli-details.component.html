@@ -1,0 +1,25 @@
+<ng-container *ngIf="stuInput; then existe; else noexiste">
+</ng-container>
+
+
+
+
+<ng-template #existe>
+    <h2>{{ stuInput!.title }}</h2>
+
+        <mat-list>
+            <mat-list-item> ID: {{ stuInput!.id }} </mat-list-item>
+            <mat-list-item> title: {{ stuInput!.title }} </mat-list-item>
+            <mat-list-item> description: {{ stuInput!.description }} </mat-list-item>
+            <mat-list-item>director: {{ stuInput!.director }} </mat-list-item>
+            <mat-list-item>producer: {{ stuInput!.producer }} </mat-list-item>
+            <mat-list-item>release_date: {{ stuInput!.release_date }} </mat-list-item>
+            <mat-list-item>rt_score: {{ stuInput!.rt_score }} </mat-list-item>
+        </mat-list>
+     
+  
+</ng-template>
+
+<ng-template #noexiste>
+    Por favor, elija una pelicula de la lista
+</ng-template>

@@ -1,0 +1,52 @@
+<h2>Lista de pokemons</h2>
+
+<!--
+<ul>
+    <li *ngFor="let pok of pokemons">
+    <span 
+        class="lista"
+        [class.select]="pok == selectedPokemon"
+        (click)="onSelect(pok)">
+        id: {{pok.id}}, name: {{pok.name}}, level: {{pok.level}}, HP: {{pok.hp}}
+    </span> &nbsp;
+    <span 
+        class="lista"
+        (click)="onEdit(pok)">edit
+    </span> &nbsp;
+    <span 
+        class="lista"
+        (click)="onDelete(pok)">delete
+    </span>
+    </li>
+</ul>
+-->
+<div class="row">
+    <div class="col col-md-6 col-lg-4 col-xl-3" 
+    *ngFor="let pok of pokemons">
+<mat-card class="pokemons-card" [class.select]="pok == selectedPokemon">
+        <div class="pokemons-selectable" (click)="onSelect(pok)">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title><span class="lista" >{{ pok.name }}</span></mat-card-title>
+          <mat-card-subtitle>ID: {{ pok.id }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pok.id}}.png" alt="Photo of {{pok.name}}">
+        <mat-card-content>
+             <span [appResaltarNivel]="pok.level" >Nivel: {{ pok.level | nivel | titlecase }} </span><br />
+           <span [appResaltaVida]="pok.hp" low="100" [high]="'400'">  HP:  {{ pok.hp | vida:100:400 | titlecase }}</span><br />
+        
+        </mat-card-content>
+    </div>
+        <mat-card-actions style="text-align:center">
+          <button mat-raised-button type="button" color="primary" (click)="onEdit(pok)">Editar</button>
+          <button mat-stroked-button type="button" color="warn" (click)="onDelete(pok)">Eliminar</button>
+          <a mat-stroked-button routerLink="raw/{{ pok.id }}">Raw</a>
+       
+        </mat-card-actions>
+      </mat-card>
+    </div>   
+    </div>
+
+
+<!-- Esto es cuando es un componente dependiente -->
+<!-- app-pokemons-details [pokInput]="selectedPokemon"></app-pokemons-details> -->

@@ -1,0 +1,53 @@
+
+<label>ID:
+    <input [(ngModel)]="stuEdit.id" type="text" placeholder="ID">
+</label><br />
+    
+
+<label>title:
+    <input id="title" name="title" class="form-control"
+    required minlength="3" #title="ngModel"
+    [(ngModel)]="stuEdit.title" type="text" placeholder="title">
+</label><br />
+
+<div *ngIf="title.invalid && (title.dirty || title.touched)">
+
+    <div class="error" *ngIf="title.errors.required">
+        El nombre es obligatorio
+    </div>
+    <div class="error" *ngIf="title.errors.minlength">
+        El nombre debe tener al menos 3 caracteres
+    </div>
+</div>
+
+<label>description:
+    <input id="description" name="description" class="form-control"
+    required minlength="4" #description="ngModel"
+    [(ngModel)]="stuEdit.description" type="text" placeholder="description">
+</label><br />
+
+<div *ngIf="description.invalid && (description.dirty || description.touched)">
+
+    <div class="error" *ngIf="description.errors.required">
+        la descripcion  es obligatorio
+    </div>
+    <div class="error" *ngIf="description.errors.minlength">
+        la descripcion debe tener al menos 4 caracteres
+    </div>
+</div>
+
+<label>director:
+    <input [(ngModel)]="stuEdit.director" type="text" placeholder="director">
+</label><br />
+<label>producer:
+    <input [(ngModel)]="stuEdit.producer" type="text" placeholder="producer">
+</label><br />
+
+<label>release_date:
+    <input [(ngModel)]="stuEdit.release_date" type="text" placeholder="release_date">
+</label><br />
+
+<label>rt_score:
+    <input [(ngModel)]="stuEdit.rt_score" type="text" placeholder="rt_score">
+</label>
+

@@ -1,0 +1,12 @@
+<h2>Datos en Raw de Pokemons</h2>
+
+
+    <ul>
+        <li *ngFor="let item of rawPoke$ | async | keyvalue ">
+            <strong>{{ $any(item).key }}</strong>: {{ item.value | json}}
+        </li>
+    </ul>
+
+    <button (click)="goBack()">Atrás</button>
+
+

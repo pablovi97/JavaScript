@@ -1,0 +1,89 @@
+<h2>Creando una nueva Pelicula</h2>
+<form [formGroup]="newStuForm" (ngSubmit)="onSubmit()">
+<mat-horizontal-stepper linear>
+   
+        <mat-step [stepControl]="newFormGroup">
+
+                <ng-template matStepLabel>ID</ng-template>
+                <label>ID:
+                    <input type="number" formControlName="id">
+                </label>
+           
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+                <ng-template matStepLabel> title</ng-template>
+                <label>title:
+                    <input type="text" formControlName="title"
+                        [style.backgroundColor]="newStuForm.controls['title'].invalid ? 'lightcoral' : 'lightgreen'"
+                        [class.error]="newStuForm.controls['title'].invalid && (newStuForm.controls['title'].dirty || newStuForm.controls['title'].touched)"
+                        [class.ok]="newStuForm.controls['title'].valid">
+                </label>
+      
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+           
+                <ng-template matStepLabel> description</ng-template>
+                <label>description:
+                 
+                    <textarea name="" id="" cols="30" rows="10" formControlName="description"
+                    [style.backgroundColor]="newStuForm.controls['description'].invalid ? 'lightcoral' : 'lightgreen'"
+                    [class.error]="newStuForm.controls['description'].invalid && (newStuForm.controls['description'].dirty || newStuForm.controls['description'].touched)"
+                    [class.ok]="newStuForm.controls['description'].valid">
+
+                    </textarea>
+            </label>
+      
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+           
+            <ng-template matStepLabel>director</ng-template>
+            <label>director:
+                <input type="text" formControlName="director"
+                [style.backgroundColor]="newStuForm.controls['director'].invalid ? 'lightcoral' : 'lightgreen'"
+                [class.error]="newStuForm.controls['director'].invalid && (newStuForm.controls['director'].dirty || newStuForm.controls['director'].touched)"
+                [class.ok]="newStuForm.controls['director'].valid">
+        </label>
+  
+    </mat-step>
+    <mat-step [stepControl]="newFormGroup">
+           
+        <ng-template matStepLabel> producer</ng-template>
+        <label>producer:
+        
+                <input type="text" formControlName="producer"
+                [style.backgroundColor]="newStuForm.controls['producer'].invalid ? 'lightcoral' : 'lightgreen'"
+                [class.error]="newStuForm.controls['producer'].invalid && (newStuForm.controls['producer'].dirty || newStuForm.controls['producer'].touched)"
+                [class.ok]="newStuForm.controls['producer'].valid">
+        </label>
+
+</mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+            <ng-template matStepLabel> release_date</ng-template>
+            <label>release_date:
+                <input type="number" formControlName="release_date">
+            </label>
+
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+            <ng-template matStepLabel>score</ng-template>
+            <label>rt_score:
+                <input type="range" min="1" max="100" value="50"  class="slider" id="myRange" formControlName="rt_score"
+                onchange="document.getElementById('sli').value = this.value">
+                <input type="text" id="sli" size="5">
+            </label>
+
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+            <ng-template matStepLabel>DONE</ng-template>
+            <label>
+                <button type="submit" [disabled]="newStuForm.invalid">Guardar</button>
+            </label>
+
+        </mat-step>
+
+</mat-horizontal-stepper>   
+ </form>

@@ -1,0 +1,31 @@
+<h2>Editando {{pokEdit.name}}</h2>
+
+<label>ID:
+    <input [(ngModel)]="pokEdit.id" type="text" placeholder="ID">
+</label><br />
+    
+
+<label>Nombre:
+    <input id="name" name="name" class="form-control"
+    required minlength="3" #name="ngModel"
+    [(ngModel)]="pokEdit.name" type="text" placeholder="Nombre">
+</label><br />
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)">
+
+    <div class="error" *ngIf="name.errors.required">
+        El nombre es obligatorio
+    </div>
+    <div class="error" *ngIf="name.errors.minlength">
+        El nombre debe tener al menos 3 caracteres
+    </div>
+</div>
+
+<label>Nivel:
+    <input [(ngModel)]="pokEdit.level" type="text" placeholder="Nivel">
+</label><br />
+
+<label>HP:
+    <input [(ngModel)]="pokEdit.hp" type="text" placeholder="HP">
+</label>
+    

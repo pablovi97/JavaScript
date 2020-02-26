@@ -1,0 +1,29 @@
+<ng-container *ngIf="pokInput; then existe; else noexiste">
+</ng-container>
+
+
+
+
+<ng-template #existe>
+    <h2>{{ pokInput!.name }}</h2>
+
+        <mat-list>
+            <mat-list-item> ID: {{ pokInput!.id }} </mat-list-item>
+            <mat-list-item> Nombre: {{ pokInput!.name }} </mat-list-item>
+            <mat-list-item> Nivel: {{ pokInput!.level }} </mat-list-item>
+            <mat-list-item>HP: {{ pokInput!.hp }} </mat-list-item>
+        </mat-list>
+        <mat-form-field>
+            <mat-label>Select an abilitie</mat-label>
+            <mat-select [(value)]="selected">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let item of  pokInput!.abilities;" value="{{item}}">{{item}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+  
+</ng-template>
+
+<ng-template #noexiste>
+    Por favor, elija un pokemon de la lista
+</ng-template>

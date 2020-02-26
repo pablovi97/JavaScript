@@ -1,0 +1,15 @@
+<h2>Notificaciones ({{ notificationsService.notifications.length }})
+<button type="button" (click)="notificationsService.clear()">Borrar</button>
+</h2>
+
+<div class="notifications">
+<ol>
+    <li *ngFor="let notification of notificationsService.notifications">
+        {{ notification}}
+    </li>
+
+</ol>
+
+</div>
+
+

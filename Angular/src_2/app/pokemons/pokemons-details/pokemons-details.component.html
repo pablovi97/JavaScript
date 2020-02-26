@@ -1,0 +1,21 @@
+
+<ng-container *ngIf="pokInput; then existe; else noexiste">
+</ng-container>
+
+
+
+
+<ng-template #existe>
+    <h2>Detalles de {{ pokInput!.name }}</h2>
+    <ul>
+        <li>ID: {{ pokInput!.id }}</li>
+        <li>Nombre: {{ pokInput!.name }}</li>
+        <li>Nivel: {{ pokInput!.level }}</li>
+        <li>HP: {{ pokInput!.hp }}</li>
+    </ul>
+</ng-template>    
+
+<ng-template #noexiste>
+    Por favor, elija un pokemon de la lista
+</ng-template>
+

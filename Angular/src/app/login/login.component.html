@@ -1,0 +1,12 @@
+
+<div class="container"><div class="row"><div class="col-4"></div>
+<div class="col-6 ">
+    <h2>Login</h2>
+<label for="user">Usuario: </label>
+<input type="text" id="user" #user><br />
+<label for="pass">Contraseña: </label>
+<input type="password" id="pass" #pass><br />
+
+<button type="button" (click)="loginUserPass(user.value, pass.value)">Login</button>
+
+    

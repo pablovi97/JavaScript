@@ -1,0 +1,28 @@
+
+<div class="row">
+    <div class="col col-md-6 col-lg-4 col-xl-3" 
+    *ngFor="let stu of studioghibli">
+<mat-card class="stu-card" [class.select]="stu == selectedStudio">
+        <div class="stu-selectable" (click)="onSelect(stu)">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title><span class="lista" >{{ stu.title }}</span></mat-card-title>
+          <mat-card-subtitle>ID: {{ stu.id }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="assets/images/Studio_Ghibli_wordmark.svg.png"  alt="Photo of {{stu.title}}">
+        <mat-card-content>
+             <span  > Director: {{ stu.director  }} </span><br />
+             <!--Usamos el pipe llamado score y la directiva llamada appScore-->
+           <span  [appScore]="stu.rt_score">  rt_score:  {{ stu.rt_score | score }}</span><br />
+        
+        </mat-card-content>
+    </div>
+        <mat-card-actions style="text-align:center">
+       <button mat-raised-button type="button" color="primary" (click)="onEdit(stu)">Editar</button>
+         <button mat-stroked-button type="button" color="warn" (click)="onDelete(stu)">Eliminar</button>
+         
+     
+        </mat-card-actions>
+      </mat-card>
+    </div>   
+    </div>

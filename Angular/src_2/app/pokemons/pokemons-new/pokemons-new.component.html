@@ -1,0 +1,33 @@
+<h2>Creando un nuevo Pokemon</h2>
+
+
+
+<form [formGroup]="newPokForm" (ngSubmit)="onSubmit()">
+    <label>ID:
+        <input type="number" formControlName="id">
+    </label><br />
+
+    <label>Nombre:
+        <input type="text" formControlName="name"
+[style.backgroundColor]="newPokForm.controls['name'].invalid ? 'lightcoral' : 'lightgreen'"
+[class.error]="newPokForm.controls['name'].invalid && (newPokForm.controls['name'].dirty || newPokForm.controls['name'].touched)"        
+[class.ok]="newPokForm.controls['name'].valid"        
+        >
+    </label><br />
+
+    <label>Level:
+        <input type="number" formControlName="level"
+        
+    [ngStyle]="{backgroundColor: newPokForm.controls['level'].invalid ? 'lightcoral' : 'lightgreen' }"
+    [ngClass]="{'error': newPokForm.controls['level'].invalid, 
+    'ok': newPokForm.controls['level'].valid}"
+    >
+    </label><br />     
+
+    <label>HP:
+        <input type="number" formControlName="hp">
+    </label><br />
+
+    <button type="submit" [disabled]="newPokForm.invalid">Guardar</button>
+
+</form>

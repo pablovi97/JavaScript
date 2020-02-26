@@ -1,0 +1,53 @@
+<h2>Creando un nuevo Pokemon</h2>
+<form [formGroup]="newPokForm" (ngSubmit)="onSubmit()">
+<mat-vertical-stepper linear>
+   
+        <mat-step [stepControl]="newFormGroup">
+
+                <ng-template matStepLabel>Introduce el ID</ng-template>
+                <label>ID:
+                    <input type="number" formControlName="id">
+                </label>
+           
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+                <ng-template matStepLabel>Introduce el nombre</ng-template>
+                <label>Nombre:
+                    <input type="text" formControlName="name"
+                        [style.backgroundColor]="newPokForm.controls['name'].invalid ? 'lightcoral' : 'lightgreen'"
+                        [class.error]="newPokForm.controls['name'].invalid && (newPokForm.controls['name'].dirty || newPokForm.controls['name'].touched)"
+                        [class.ok]="newPokForm.controls['name'].valid">
+                </label>
+      
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+           
+                <ng-template matStepLabel>Introduce el Nivel</ng-template>
+                <label>Level:
+                    <input type="number" formControlName="level"
+                        [ngStyle]="{backgroundColor: newPokForm.controls['level'].invalid ? 'lightcoral' : 'lightgreen' }"
+                        [ngClass]="{'error': newPokForm.controls['level'].invalid, 
+            'ok': newPokForm.controls['level'].valid}">
+                </label>
+      
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+            <ng-template matStepLabel>Introduce la vida</ng-template>
+            <label>HP:
+                <input type="number" formControlName="hp">
+            </label>
+
+        </mat-step>
+        <mat-step [stepControl]="newFormGroup">
+
+            <ng-template matStepLabel>DONE</ng-template>
+            <label>
+                <button type="submit" [disabled]="newPokForm.invalid">Guardar</button>
+            </label>
+
+        </mat-step>
+
+</mat-vertical-stepper>   
+ </form>
