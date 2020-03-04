@@ -12,7 +12,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
 //Quitamos del local storage la sesion del usuario
- localStorage.removeItem('logged');
+ sessionStorage.removeItem('logged');
  //lo mandamos al login (se deberia hacer mejor con un usuario con tokens )
  
  this._router.navigate(["/login"]);
